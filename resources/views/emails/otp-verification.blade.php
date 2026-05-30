@@ -15,7 +15,7 @@
                     <tr>
                         <td style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 32px 40px; text-align: center;">
                             <h1 style="margin: 0; color: #ffffff; font-size: 22px; font-weight: 700; letter-spacing: -0.02em;">
-                                🍽️ LajuPesan
+                                LajuPesan
                             </h1>
                             <p style="margin: 8px 0 0; color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 400;">
                                 Verifikasi Alamat Email Anda
@@ -27,7 +27,7 @@
                     <tr>
                         <td style="padding: 36px 40px;">
                             <p style="margin: 0 0 8px; color: #191c1e; font-size: 16px; font-weight: 600;">
-                                Halo, {{ $userName }}! 👋
+                                Halo, {{ $userName }}
                             </p>
                             <p style="margin: 0 0 28px; color: #534434; font-size: 14px; line-height: 22px;">
                                 Terima kasih telah mendaftar di LajuPesan. Masukkan kode verifikasi berikut untuk mengaktifkan akun Anda:
@@ -43,7 +43,7 @@
                             </div>
 
                             <p style="margin: 0 0 6px; color: #534434; font-size: 13px; line-height: 20px; text-align: center;">
-                                ⏱️ Kode ini berlaku selama <strong>10 menit</strong>.
+                                Kode ini berlaku selama <strong>10 menit</strong>.
                             </p>
                             <p style="margin: 0 0 28px; color: #867461; font-size: 12px; line-height: 18px; text-align: center;">
                                 Jika Anda tidak merasa mendaftar, abaikan email ini.
@@ -52,7 +52,7 @@
                             {{-- Security Warning --}}
                             <div style="background-color: #fef2f2; border-left: 4px solid #ef4444; border-radius: 8px; padding: 14px 16px;">
                                 <p style="margin: 0; color: #991b1b; font-size: 12px; font-weight: 600;">
-                                    🔒 Keamanan
+                                    Keamanan
                                 </p>
                                 <p style="margin: 4px 0 0; color: #7f1d1d; font-size: 12px; line-height: 18px;">
                                     Jangan pernah membagikan kode ini kepada siapa pun, termasuk pihak yang mengaku dari LajuPesan.
@@ -65,7 +65,7 @@
                     <tr>
                         <td style="padding: 20px 40px; border-top: 1px solid #e0e3e5; text-align: center;">
                             <p style="margin: 0; color: #867461; font-size: 11px;">
-                                © {{ date('Y') }} LajuPesan — Sistem E-Menu Digital Premium
+                                © {{ date('Y') }} LajuPesan
                             </p>
                         </td>
                     </tr>

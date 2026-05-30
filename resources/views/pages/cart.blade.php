@@ -86,9 +86,16 @@
                 </p>
             </div>
 
-            <a href="{{ route('customer-information', $store->username) }}" type="button"
-                class="flex justify-center items-center rounded-full px-5 py-3 bg-[#FF801A] font-medium text-white text-sm whitespace-nowrap shrink-0">
-                Lanjut Pembayaran
+            <a href="{{ route('customer-information', $store->username) }}" id="btn-checkout"
+                class="flex justify-center items-center rounded-full px-5 py-3 bg-[#FF801A] font-medium text-white text-sm whitespace-nowrap shrink-0 min-w-[170px] h-[44px] transition-all duration-200"
+                onclick="handleCheckout(event, this)">
+                <span id="btn-checkout-text" class="flex items-center gap-2">
+                    Lanjut Pembayaran
+                </span>
+                <svg id="btn-checkout-spinner" class="animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
             </a>
         </div>
     </div>
@@ -96,4 +103,17 @@
 
 @section('script')
     <script src="{{ asset('assets/js/cart.js') }}"></script>
+    <script>
+        function handleCheckout(event, el) {
+            event.preventDefault();
+            const text = el.querySelector('#btn-checkout-text');
+            const spinner = el.querySelector('#btn-checkout-spinner');
+            text.classList.add('hidden');
+            spinner.classList.remove('hidden');
+            el.classList.add('opacity-70', 'pointer-events-none');
+            setTimeout(() => {
+                window.location.href = el.href;
+            }, 150);
+        }
+    </script>
 @endsection

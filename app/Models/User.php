@@ -10,9 +10,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use App\Mail\OtpVerificationMail;
+use Filament\Models\Contracts\HasAvatar;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasAvatar
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, SoftDeletes;
@@ -150,6 +152,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function storeSocialMedia()
     {
         return $this->hasMany(StoreSocialMedia::class);
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        if (!$this->logo) {
+            return null;
+        }
+
+        return Storage::url($this->logo);
     }
 
 

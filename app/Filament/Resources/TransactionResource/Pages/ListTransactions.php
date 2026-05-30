@@ -41,6 +41,9 @@ class ListTransactions extends ListRecords
 
         if ($status === 'pending') {
             if ($paymentMethod === 'cash') {
+                // 🔊 Putar suara notifikasi transaksi tunai masuk
+                $this->dispatch('play-transaction-sound', type: 'cash-pending');
+
                 Notification::make()
                     ->title('💵 Pesanan (TUNAI)')
                     ->body("Nama: {$name}\nKode Transaksi: {$code}")
@@ -64,6 +67,9 @@ class ListTransactions extends ListRecords
                     ->duration(10000)
                     ->send();
             } else {
+                // 🔊 Putar suara notifikasi pembayaran non-tunai berhasil
+                $this->dispatch('play-transaction-sound', type: 'non-cash-success');
+
                 Notification::make()
                     ->title('🎉 Pembayaran Non-Tunai SUKSES!')
                     ->body("Nama: {$name}\nKode Transaksi: {$code}")

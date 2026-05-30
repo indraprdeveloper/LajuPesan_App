@@ -65,7 +65,7 @@
                     <tr>
                         <td style="padding: 20px 40px; border-top: 1px solid #e0e3e5; text-align: center;">
                             <p style="margin: 0; color: #867461; font-size: 11px;">
-                                © {{ date('Y') }} LajuPesan — Sistem E-Menu Digital Premium
+                                © {{ date('Y') }} LajuPesan
                             </p>
                         </td>
                     </tr>

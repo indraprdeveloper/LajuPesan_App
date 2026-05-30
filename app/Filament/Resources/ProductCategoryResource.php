@@ -28,6 +28,11 @@ class ProductCategoryResource extends Resource
     protected static ?string $slug = 'kategori-produk';
 
 
+    public static function canCreate(): bool
+    {
+        return Auth::user()->role !== 'admin';
+    }
+
     public static function getEloquentQuery(): Builder
     {
         $user = Auth::user();
@@ -76,14 +81,21 @@ class ProductCategoryResource extends Resource
 
 
             ])
+            ->recordUrl(fn($record) => Auth::user()->role === 'admin'
+                ? null
+                : static::getUrl('edit', ['record' => $record])
+            )
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->hidden(fn() => Auth::user()->role === 'admin'),
+                Tables\Actions\DeleteAction::make()
+                    ->hidden(fn() => Auth::user()->role === 'admin'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->hidden(fn() => Auth::user()->role === 'admin'),
                 ]),
             ]);
     }

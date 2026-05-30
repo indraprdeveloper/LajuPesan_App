@@ -44,7 +44,7 @@ class ProductResource extends Resource
     public static function canCreate(): bool
     {
         if (Auth::user()->role === 'admin') {
-            return true;
+            return false;
         }
 
         $subcription = Subscription::where('user_id', Auth::user()->id)
@@ -137,7 +137,8 @@ class ProductResource extends Resource
                         return 'Rp' . number_format($state);
                     }),
                 Tables\Columns\ToggleColumn::make('is_popular')
-                    ->label('Populer Menu'),
+                    ->label('Populer Menu')
+                    ->disabled(fn() => Auth::user()->role === 'admin'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('user')
@@ -154,14 +155,21 @@ class ProductResource extends Resource
                     })
                     ->label('Kategori Menu'),
             ])
+            ->recordUrl(fn($record) => Auth::user()->role === 'admin'
+                ? null
+                : static::getUrl('edit', ['record' => $record])
+            )
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->hidden(fn() => Auth::user()->role === 'admin'),
+                Tables\Actions\DeleteAction::make()
+                    ->hidden(fn() => Auth::user()->role === 'admin'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->hidden(fn() => Auth::user()->role === 'admin'),
                 ]),
             ]);
     }

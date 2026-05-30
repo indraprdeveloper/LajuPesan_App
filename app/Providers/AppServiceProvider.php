@@ -26,10 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (str_contains(request()->url(), 'ngrok')) {
-            URL::forceScheme('https');
-        }
-
         // Override URL verifikasi email agar menggunakan route Filament
         VerifyEmail::createUrlUsing(function ($notifiable) {
             return URL::temporarySignedRoute(

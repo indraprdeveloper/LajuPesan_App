@@ -15,8 +15,8 @@ class StoreProfile extends Page implements HasForms
     use InteractsWithForms;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
-    protected static ?string $navigationLabel = 'Manajemen Profil Toko';
-    protected static ?string $title = 'Manajemen Profil Toko';
+    protected static ?string $navigationLabel = 'Profil Toko';
+    protected static ?string $title = 'Profil Toko';
     protected static ?string $slug = 'profil-toko';
     protected static ?int $navigationSort = 1;
 

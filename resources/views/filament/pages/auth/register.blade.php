@@ -143,6 +143,24 @@
             color: #534434 !important;
         }
         
+        /* Custom FilePond Styling to match standard inputs */
+        .filepond--root {
+            border: 1px solid #e0e3e5 !important;
+            border-radius: 0.75rem !important;
+            background-color: #ffffff !important;
+            box-shadow: none !important;
+            overflow: hidden !important;
+        }
+        .filepond--panel-root {
+            background-color: #ffffff !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+        .filepond--label-action {
+            color: #f59e0b !important;
+            text-decoration: underline;
+        }
+        
         /* Hide required asterisk (bintang-bintang) */
         .fi-fo-field-wrp-label sup {
             display: none !important;
@@ -158,10 +176,103 @@
             font-size: 16px !important;
             box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
             border: none !important;
+            position: relative !important;
+            transition: all 0.2s ease-in-out !important;
         }
         .fi-btn-label {
             font-size: 16px !important;
             color: #613b00 !important;
+            transition: all 0.2s ease-in-out !important;
+        }
+
+        /* Loading animation style when submitting */
+        .fi-btn:disabled, button[type="submit"]:disabled {
+            background-color: #d97706 !important; /* Darker amber when loading */
+            cursor: not-allowed !important;
+            opacity: 0.9 !important;
+        }
+        
+        .fi-btn:disabled .fi-btn-label, button[type="submit"]:disabled .fi-btn-label,
+        .fi-btn:disabled span, button[type="submit"]:disabled span {
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+
+        /* Hide Filament's default built-in SVG loading spinner */
+        .fi-btn:disabled svg,
+        button[type="submit"]:disabled svg,
+        .fi-btn [wire\:loading] {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+
+        .fi-btn:disabled::after, button[type="submit"]:disabled::after {
+            content: "" !important;
+            position: absolute !important;
+            width: 22px !important;
+            height: 22px !important;
+            top: 50% !important;
+            left: 50% !important;
+            margin-top: -11px !important;
+            margin-left: -11px !important;
+            border: 3px solid rgba(97, 59, 0, 0.2) !important;
+            border-top: 3px solid #613b00 !important;
+            border-radius: 50% !important;
+            animation: fi-btn-spin 0.6s linear infinite !important;
+            z-index: 10 !important;
+        }
+
+        @keyframes fi-btn-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Fix: Make input text visible & remove gray background */
+        .fi-input,
+        .fi-input-wrp .fi-input,
+        .fi-input-wrp input,
+        .fi-input-wrp textarea,
+        .fi-input-wrp select {
+            background-color: #ffffff !important;
+        }
+        .fi-input input,
+        .fi-input textarea,
+        .fi-input select,
+        .fi-input-wrp input,
+        .fi-input-wrp textarea,
+        .fi-input-wrp select,
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="number"],
+        textarea,
+        select {
+            color: #191c1e !important;
+            -webkit-text-fill-color: #191c1e !important;
+            opacity: 1 !important;
+            background-color: transparent !important;
+        }
+        input::placeholder,
+        textarea::placeholder {
+            color: #867461 !important;
+            -webkit-text-fill-color: #867461 !important;
+            opacity: 1 !important;
+        }
+
+        /* Fix: Override browser autofill gray background */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active,
+        textarea:-webkit-autofill,
+        select:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+            box-shadow: 0 0 0 1000px #ffffff inset !important;
+            -webkit-text-fill-color: #191c1e !important;
+            background-color: #ffffff !important;
+            transition: background-color 5000s ease-in-out 0s !important;
         }
 
         /* Compress form spacing */

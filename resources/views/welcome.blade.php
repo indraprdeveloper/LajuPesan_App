@@ -4,6 +4,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
 <title>LajuPesan</title>
+<link rel="icon" type="image/png" href="{{ asset('assets/images/logolajupesan.png') }}"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -125,85 +126,194 @@
           0 0 0 10px #3a3a3c,
           0 20px 50px rgba(0,0,0,0.15);
       }
-      body {
-        min-height: 100vh;
+      
+      /* Force single-page layout & disable scrolling */
+      html, body {
+        height: 100%;
+        height: 100dvh;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+      
+      .pb-safe {
+        padding-bottom: max(env(safe-area-inset-bottom), 16px);
+      }
+      .tracking-tightest {
+        letter-spacing: -0.05em;
+      }
+
+      /* Height-responsive styling */
+      .welcome-header {
+        height: 4rem; /* h-16 */
+      }
+      .welcome-hero {
+        margin-top: 0.5rem; /* mt-2 */
+        gap: 0.375rem; /* gap-1.5 */
+      }
+      .welcome-title {
+        font-size: 1.5rem; /* text-2xl */
+      }
+      .welcome-desc {
+        font-size: 0.875rem; /* text-body-md */
+      }
+      .welcome-mockup-container {
+        height: 48vh;
+        min-height: 280px;
+        max-height: 480px;
+      }
+      .welcome-footer {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        gap: 0.75rem;
+      }
+      .welcome-btn {
+        height: 52px;
+      }
+      .welcome-subtext {
+        font-size: 12px;
+      }
+
+      @media (max-height: 740px) {
+        .welcome-header {
+          height: 3rem; /* h-12 */
+        }
+        .welcome-hero {
+          margin-top: 0.25rem;
+          gap: 0.25rem;
+        }
+        .welcome-title {
+          font-size: 1.25rem; /* text-xl */
+        }
+        .welcome-desc {
+          font-size: 0.75rem; /* text-xs */
+          max-width: 280px;
+        }
+        .welcome-mockup-container {
+          height: 42vh;
+          min-height: 240px;
+        }
+        .welcome-footer {
+          padding-top: 0.5rem;
+          padding-bottom: 0.5rem;
+          gap: 0.5rem;
+        }
+        .welcome-btn {
+          height: 44px;
+          font-size: 14px;
+        }
+        .welcome-btn span {
+          font-size: 18px !important;
+        }
+        .welcome-subtext {
+          font-size: 11px;
+        }
+      }
+
+      @media (max-height: 640px) {
+        .welcome-header {
+          height: 2.5rem; /* h-10 */
+        }
+        .welcome-hero {
+          margin-top: 0px;
+          gap: 0.125rem;
+        }
+        .welcome-title {
+          font-size: 1.125rem; /* text-lg */
+        }
+        .welcome-desc {
+          font-size: 0.7rem;
+          max-width: 260px;
+        }
+        .welcome-mockup-container {
+          height: 38vh;
+          min-height: 200px;
+        }
+        .welcome-footer {
+          padding-top: 0.25rem;
+          padding-bottom: 0.25rem;
+          gap: 0.25rem;
+        }
+        .welcome-btn {
+          height: 38px;
+          font-size: 13px;
+        }
+        .welcome-btn span {
+          font-size: 16px !important;
+        }
+        .welcome-subtext {
+          font-size: 10px;
+        }
       }
     </style>
 </head>
 <body class="bg-surface text-on-background font-body-md selection:bg-amber-accent/30 flex flex-col items-center">
-<main class="relative w-full max-w-[480px] min-h-screen bg-radial-depth flex flex-col px-container-padding">
+<main class="relative w-full max-w-[480px] h-screen h-[100dvh] overflow-hidden bg-radial-depth flex flex-col px-container-padding justify-between">
 <!-- Header Section -->
-<header class="w-full h-16 flex items-center justify-center shrink-0">
+<header class="w-full welcome-header flex items-center justify-center shrink-0">
 <h1 class="font-headline-md text-[24px] text-primary tracking-tightest">LajuPesan</h1>
 </header>
 <!-- Hero Content Section -->
-<section class="mt-4 text-center flex flex-col gap-3 z-10 shrink-0">
-<h2 class="font-display-lg text-display-lg text-on-surface leading-tight px-2">
+<section class="welcome-hero text-center flex flex-col z-10 shrink-0">
+<h2 class="font-display-lg welcome-title text-on-surface leading-tight px-2">
                 Modernisasi Bisnis F&amp;B Anda dalam Hitungan Menit
             </h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[300px] mx-auto leading-relaxed">
+<p class="font-body-md welcome-desc text-on-surface-variant max-w-[300px] mx-auto leading-relaxed">
                 Solusi digital terpadu untuk efisiensi operasional dan kepuasan pelanggan.
             </p>
 </section>
 <!-- Visual Hero Section -->
-<section class="relative mt-8 flex flex-col items-center flex-grow justify-center">
+<section class="relative my-auto flex flex-col items-center justify-center min-h-0 flex-1 w-full">
+<!-- Wrapper with exact dimensions of the mockup so children are positioned relative to it -->
+<div class="relative welcome-mockup-container aspect-[13/24] @container">
 <!-- 3D Modern Smartphone Mockup -->
-<div class="relative w-[260px] h-[480px] device-frame rounded-[3.5rem] bg-[#1c1c1e] p-1.5 overflow-hidden transition-transform duration-700 hover:scale-[1.02]">
-<div class="w-full h-full rounded-[3.2rem] bg-white overflow-hidden relative">
+<div class="w-full h-full device-frame rounded-[2.2rem] bg-[#1c1c1e] p-1 overflow-hidden transition-transform duration-700 hover:scale-[1.02]">
+<div class="w-full h-full rounded-[2rem] bg-white overflow-hidden relative">
 <!-- Screen Content -->
 <img alt="Premium Salmon Dish" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxqVBLqcLxP5XtGDM_yCEcR1PG3ar_BglqPSshPxA1xLiNI7rDZOC8jootTuLuFsTUZJs2N08n9l0rVxDwHKqCge5mE2mgCrV7G8zm15NxV7WvFFNbvZalzq5Z7Ka0-BjYTRybcKe4OL-11noefYLRcQncPyV3Zn6ZAyXJIJi43P2Z1YxzN7uLOT1DKfesp7TjyUt6LgpAf0lxzEV9pVBkSRLh1_pSFjGMR0GUcijBCOCSGp6lcEmK36Ipsx_9J4TksIDuCCmuBQ"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-<div class="absolute bottom-10 left-8 right-8 text-white">
-<p class="font-headline-sm text-headline-sm tracking-tight">Salmon Soufflé</p>
-<div class="flex items-center gap-1.5 mt-1">
-<span class="w-2 h-2 rounded-full bg-green-400"></span>
-<p class="font-label-md text-label-md text-white/90">Tersedia Sekarang</p>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+<div class="absolute bottom-[8cqw] left-[8cqw] right-[8cqw] text-white">
+<p class="font-semibold text-[9cqw] leading-tight tracking-tight">Salmon Soufflé</p>
+<div class="flex items-center gap-[1.5cqw] mt-[1cqw]">
+<span class="w-[1.8cqw] h-[1.8cqw] rounded-full bg-green-400"></span>
+<p class="text-[6cqw] text-white/90 font-medium">Tersedia Sekarang</p>
 </div>
 </div>
 </div>
 <!-- Dynamic Island Mockup -->
-<div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full"></div>
+<div class="absolute top-[4cqw] left-1/2 -translate-x-1/2 w-[35cqw] h-[6cqw] bg-black rounded-full"></div>
 </div>
 <!-- Floating Enhanced Glassmorphism Badge -->
-<div class="absolute -right-2 top-[15%] glass-card p-4 rounded-3xl flex items-center gap-3 max-w-[210px] z-30 transition-all duration-500 hover:translate-x-[-8px]">
-<div class="w-11 h-11 rounded-2xl bg-amber-accent flex items-center justify-center text-white shadow-lg shadow-amber-accent/30">
-<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+<div class="absolute -right-[25cqw] top-[20%] glass-card p-[4.5cqw] rounded-[5cqw] flex items-center gap-[3.5cqw] w-[65cqw] z-30 transition-all duration-500 hover:translate-x-[-4px]">
+<div class="w-[18cqw] h-[18cqw] rounded-[4cqw] bg-amber-accent flex items-center justify-center text-white shadow-lg shadow-amber-accent/30 shrink-0">
+<span class="material-symbols-outlined text-[10cqw]" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
 </div>
-<div class="flex flex-col">
-<span class="font-button-text text-on-surface text-[14px]">Setup Cepat</span>
-<span class="text-[10px] font-bold text-primary uppercase tracking-[0.1em]">Siap dalam 5 Menit</span>
+<div class="flex flex-col min-w-0">
+<span class="font-bold text-on-surface text-[5.5cqw] leading-none">Setup Cepat</span>
+<span class="text-[4.5cqw] font-bold text-primary uppercase tracking-wider mt-[0.5cqw] leading-none">5 Menit</span>
+</div>
 </div>
 </div>
 <!-- Decorative Glow -->
 <div class="absolute -left-12 bottom-[10%] w-32 h-32 bg-amber-accent/10 rounded-full blur-[60px] -z-10"></div>
 </section>
 <!-- Footer / CTA Section -->
-<footer class="w-full flex flex-col gap-6 py-8 z-20 shrink-0">
-<div class="flex flex-col gap-3.5">
-<a href="{{ filament()->getLoginUrl() }}" class="w-full h-[60px] bg-amber-accent hover:bg-[#E59200] text-white font-button-text text-lg rounded-2xl shadow-[0px_12px_24px_-8px_rgba(245,158,11,0.5)] flex items-center justify-center gap-3 active:scale-[0.98] transition-all">
+<footer class="w-full welcome-footer flex flex-col pb-safe z-20 shrink-0">
+<div class="flex flex-col gap-2">
+<a href="{{ filament()->getLoginUrl() }}" class="w-full welcome-btn bg-amber-accent hover:bg-[#E59200] text-white font-button-text text-base rounded-xl shadow-[0px_8px_16px_-6px_rgba(245,158,11,0.5)] flex items-center justify-center gap-2.5 active:scale-[0.98] transition-all">
                     Mulai Sekarang
-                    <span class="material-symbols-outlined text-[22px]">arrow_forward</span>
+                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
 </a>
-<p class="text-center font-label-md text-label-md text-on-surface-variant/80 px-4">
+<p class="text-center font-label-md welcome-subtext text-on-surface-variant/80 px-4">
                     Gratis selamanya untuk 5 produk pertama. Upgrade kapan saja.
                 </p>
 </div>
 
 </footer>
 </main>
-<style>
-        ::-webkit-scrollbar {
-            display: none;
-        }
-        body {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .pb-safe {
-            padding-bottom: max(env(safe-area-inset-bottom), 16px);
-        }
-        .tracking-tightest {
-            letter-spacing: -0.05em;
-        }
-    </style>
 </body></html>
