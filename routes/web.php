@@ -1,10 +1,42 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AuthController;
+use App\Models\User;
+
+Route::get('/sitemap.xml', function () {
+    $users = User::whereNotNull('username')->get();
+    $baseUrl = config('app.url');
+
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>';
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+    // Homepage
+    $xml .= '<url>';
+    $xml .= '<loc>' . $baseUrl . '</loc>';
+    $xml .= '<changefreq>daily</changefreq>';
+    $xml .= '<priority>1.0</priority>';
+    $xml .= '</url>';
+
+    // Store pages
+    foreach ($users as $user) {
+        $xml .= '<url>';
+        $xml .= '<loc>' . $baseUrl . '/' . $user->username . '</loc>';
+        $xml .= '<changefreq>daily</changefreq>';
+        $xml .= '<priority>0.8</priority>';
+        $xml .= '</url>';
+    }
+
+    $xml .= '</urlset>';
+
+    return Response::make($xml, 200, [
+        'Content-Type' => 'application/xml',
+    ]);
+});
 
 Route::get('/', [AuthController::class, 'welcome'])->name('welcome');
 
