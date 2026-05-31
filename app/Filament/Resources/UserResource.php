@@ -70,7 +70,8 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('logo')
-                ->label('Logo Toko'),
+                ->label('Logo Toko')
+                ->state(fn ($record) => str_starts_with($record->logo, 'assets/') ? asset($record->logo) : $record->logo),
                 Tables\Columns\TextColumn::make('name')
                 ->label('Nama Toko'),
                 Tables\Columns\TextColumn::make('username')

@@ -6,7 +6,7 @@
             @if (Route::current()->getName() == 'index')
                 <img src="{{ asset('assets/images/icons/Home.svg') }}" class="w-[24px] h-[24px]" alt="icon">
             @else
-                <img src="{{ asset('assets/images/icons/Home_default.svg') }}" class="w-[24px] h-[24px]" alt="icon">
+                <img src="{{ asset('assets/images/icons/Home_Default.svg') }}" class="w-[24px] h-[24px]" alt="icon">
             @endif
             <p
                 class="{{ Route::current()->getName() == 'index' ? 'text-[#FF801A]' : 'text-[#606060]' }} font-[400] text-[12px]">

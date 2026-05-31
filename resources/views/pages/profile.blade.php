@@ -25,7 +25,7 @@
                 <div
                     class="w-[100px] h-[100px] rounded-full border-4 border-white shadow-md overflow-hidden bg-white flex items-center justify-center">
                     @if ($store->logo)
-                        <img src="{{ asset('storage/' . $store->logo) }}" class="w-full h-full object-cover"
+                        <img src="{{ str_starts_with($store->logo, 'assets/') ? asset($store->logo) : asset('storage/' . $store->logo) }}" class="w-full h-full object-cover"
                             alt="Logo {{ $store->name }}">
                     @else
                         <div
