@@ -4,7 +4,7 @@
     <div id="FindMenu" class="relative flex flex-col justify-center items-center mt-12 overflow-hidden p-5">
         <div class="bg-white flex items-center justify-center w-[180px] h-[180px] rounded-full overflow-hidden border border-[#F1F2F6] shadow-sm">
             @if($store->logo)
-                <img src="{{ Storage::url($store->logo) }}" alt="{{ $store->name }} logo" class="w-full h-full object-cover">
+                <img src="{{ str_starts_with($store->logo, 'assets/') ? asset($store->logo) : Storage::url($store->logo) }}" alt="{{ $store->name }} logo" class="w-full h-full object-cover">
             @else
                 <img src="{{ asset('assets/images/photos/find-image.png') }}" alt="image" class="w-[150px] object-cover">
             @endif
