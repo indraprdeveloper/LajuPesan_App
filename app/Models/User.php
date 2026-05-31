@@ -162,6 +162,10 @@ class User extends Authenticatable implements MustVerifyEmail, HasAvatar, Filame
             return null;
         }
 
+        if (str_starts_with($this->logo, 'assets/')) {
+            return asset($this->logo);
+        }
+
         return Storage::url($this->logo);
     }
 
