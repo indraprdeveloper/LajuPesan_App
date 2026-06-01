@@ -105,6 +105,7 @@ class ProductResource extends Resource
                 Forms\Components\TextInput::make('price')
                     ->label('Harga Menu')
                     ->numeric()
+                    ->minValue(0)
                     ->required(),
                 Forms\Components\Toggle::make('is_popular')
                     ->label('Populer Menu')
