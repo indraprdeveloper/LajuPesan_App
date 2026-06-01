@@ -26,6 +26,7 @@ class ProductCategoryResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Kategori Produk';
     protected static ?string $slug = 'kategori-produk';
+    protected static ?string $modelLabel = 'Kategori Produk';
 
 
     public static function canCreate(): bool
