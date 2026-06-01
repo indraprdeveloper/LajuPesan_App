@@ -79,7 +79,7 @@ class ProductResource extends Resource
                             return [];
                         }
 
-                        return productCategory::where('user_id', $userId)
+                        return ProductCategory::where('user_id', $userId)
                             ->pluck('name', 'id');
                     })
                     ->hidden(fn() => Auth::user()->role === 'store'),
@@ -88,7 +88,7 @@ class ProductResource extends Resource
                     ->required()
                     ->relationship('productCategory', 'name')
                     ->options(function (callable $get) {
-                        return productCategory::where('user_id', Auth::user()->id)
+                        return ProductCategory::where('user_id', Auth::user()->id)
                             ->pluck('name', 'id');
                     })
                     ->hidden(fn() => Auth::user()->role === 'admin'),
@@ -99,7 +99,7 @@ class ProductResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->label('Nama Menu')
                     ->required(),
-                Forms\Components\TextArea::make('description')
+                Forms\Components\Textarea::make('description')
                     ->label('Deskripsi Menu')
                     ->required(),
                 Forms\Components\TextInput::make('price')
