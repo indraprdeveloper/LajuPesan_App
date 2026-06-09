@@ -261,10 +261,11 @@
 <!-- Hero Content Section -->
 <section class="welcome-hero text-center flex flex-col z-10 shrink-0">
 <h2 class="font-display-lg welcome-title text-on-surface leading-tight px-2">
-                Modernisasi Bisnis F&amp;B Anda dalam Hitungan Menit
+                Penyedia Layanan Menu Digital
+Modernisasi Operasional F&B Anda dalam Hitungan Menit
             </h2>
 <p class="font-body-md welcome-desc text-on-surface-variant max-w-[300px] mx-auto leading-relaxed">
-                Solusi digital terpadu untuk efisiensi operasional dan kepuasan pelanggan.
+                Kelola menu QR, pemesanan otomatis, dan pembayaran digital dalam satu platform terintegrasi.
             </p>
 </section>
 <!-- Visual Hero Section -->
