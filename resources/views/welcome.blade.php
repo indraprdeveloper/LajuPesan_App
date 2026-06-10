@@ -122,9 +122,11 @@
       }
       .device-frame {
         box-shadow: 
-          0 0 0 4px #1c1c1e,
+          0 0 0 3px #2c2c2e,
+          0 0 0 8px #1c1c1e,
           0 0 0 10px #3a3a3c,
-          0 20px 50px rgba(0,0,0,0.15);
+          0 25px 60px rgba(0,0,0,0.2),
+          0 10px 20px rgba(0,0,0,0.1);
       }
       
       /* Force single-page layout & disable scrolling */
@@ -157,15 +159,15 @@
         gap: 0.375rem; /* gap-1.5 */
       }
       .welcome-title {
-        font-size: 1.5rem; /* text-2xl */
+        font-size: 1.35rem; /* text-2xl */
       }
       .welcome-desc {
         font-size: 0.875rem; /* text-body-md */
       }
       .welcome-mockup-container {
-        height: 48vh;
-        min-height: 280px;
-        max-height: 480px;
+        height: 52vh;
+        min-height: 300px;
+        max-height: 520px;
       }
       .welcome-footer {
         padding-top: 1rem;
@@ -188,7 +190,7 @@
           gap: 0.25rem;
         }
         .welcome-title {
-          font-size: 1.25rem; /* text-xl */
+          font-size: 1.15rem; /* text-xl */
         }
         .welcome-desc {
           font-size: 0.75rem; /* text-xs */
@@ -224,7 +226,7 @@
           gap: 0.125rem;
         }
         .welcome-title {
-          font-size: 1.125rem; /* text-lg */
+          font-size: 1rem; /* text-lg */
         }
         .welcome-desc {
           font-size: 0.7rem;
@@ -261,33 +263,25 @@
 <!-- Hero Content Section -->
 <section class="welcome-hero text-center flex flex-col z-10 shrink-0">
 <h2 class="font-display-lg welcome-title text-on-surface leading-tight px-2">
-                Penyedia Layanan Menu Digital
-Modernisasi Operasional F&B Anda dalam Hitungan Menit
-            </h2>
+    Penyedia Layanan Menu Digital
+    Modernisasi Bisnis F&B dalam Hitungan Menit
+</h2>
 <p class="font-body-md welcome-desc text-on-surface-variant max-w-[300px] mx-auto leading-relaxed">
-                Kelola menu QR, pemesanan otomatis, dan pembayaran digital dalam satu platform terintegrasi.
-            </p>
+    Menu QR, order otomatis, dan pembayaran digital dalam satu platform.
+</p>
 </section>
 <!-- Visual Hero Section -->
 <section class="relative my-auto flex flex-col items-center justify-center min-h-0 flex-1 w-full">
 <!-- Wrapper with exact dimensions of the mockup so children are positioned relative to it -->
-<div class="relative welcome-mockup-container aspect-[13/24] @container">
+<div class="relative welcome-mockup-container @container" style="aspect-ratio: 984/1599;">
 <!-- 3D Modern Smartphone Mockup -->
-<div class="w-full h-full device-frame rounded-[2.2rem] bg-[#1c1c1e] p-1 overflow-hidden transition-transform duration-700 hover:scale-[1.02]">
-<div class="w-full h-full rounded-[2rem] bg-white overflow-hidden relative">
-<!-- Screen Content -->
-<img alt="Premium Salmon Dish" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxqVBLqcLxP5XtGDM_yCEcR1PG3ar_BglqPSshPxA1xLiNI7rDZOC8jootTuLuFsTUZJs2N08n9l0rVxDwHKqCge5mE2mgCrV7G8zm15NxV7WvFFNbvZalzq5Z7Ka0-BjYTRybcKe4OL-11noefYLRcQncPyV3Zn6ZAyXJIJi43P2Z1YxzN7uLOT1DKfesp7TjyUt6LgpAf0lxzEV9pVBkSRLh1_pSFjGMR0GUcijBCOCSGp6lcEmK36Ipsx_9J4TksIDuCCmuBQ"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
-<div class="absolute bottom-[8cqw] left-[8cqw] right-[8cqw] text-white">
-<p class="font-semibold text-[9cqw] leading-tight tracking-tight">Salmon Soufflé</p>
-<div class="flex items-center gap-[1.5cqw] mt-[1cqw]">
-<span class="w-[1.8cqw] h-[1.8cqw] rounded-full bg-green-400"></span>
-<p class="text-[6cqw] text-white/90 font-medium">Tersedia Sekarang</p>
-</div>
-</div>
-</div>
+<div class="w-full h-full device-frame rounded-[2.5rem] bg-[#1c1c1e] p-[6px] overflow-hidden transition-transform duration-700 hover:scale-[1.02]">
+                <div class="w-full h-full rounded-[2.2rem] bg-[#fcf5ee] overflow-hidden relative">
+                    <!-- Screen Content -->
+                    <img alt="Menu Digital Sutherland" class="w-full h-full object-cover" src="{{ asset('assets/images/menu-sutherland.png') }}?v=4"/>
+                </div>
 <!-- Dynamic Island Mockup -->
-<div class="absolute top-[4cqw] left-1/2 -translate-x-1/2 w-[35cqw] h-[6cqw] bg-black rounded-full"></div>
+<div class="absolute top-[3.5cqw] left-1/2 -translate-x-1/2 w-[28cqw] h-[5cqw] bg-black rounded-full"></div>
 </div>
 <!-- Floating Enhanced Glassmorphism Badge -->
 <div class="absolute -right-[25cqw] top-[20%] glass-card p-[4.5cqw] rounded-[5cqw] flex items-center gap-[3.5cqw] w-[65cqw] z-30 transition-all duration-500 hover:translate-x-[-4px]">
