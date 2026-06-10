@@ -122,9 +122,9 @@
       }
       .device-frame {
         box-shadow: 
-          0 0 0 3px #2c2c2e,
-          0 0 0 8px #1c1c1e,
-          0 0 0 10px #3a3a3c,
+          0 0 0 2px #2c2c2e,
+          0 0 0 4px #1c1c1e,
+          0 0 0 5px #3a3a3c,
           0 25px 60px rgba(0,0,0,0.2),
           0 10px 20px rgba(0,0,0,0.1);
       }
@@ -275,13 +275,13 @@
 <!-- Wrapper with exact dimensions of the mockup so children are positioned relative to it -->
 <div class="relative welcome-mockup-container @container" style="aspect-ratio: 984/1599;">
 <!-- 3D Modern Smartphone Mockup -->
-<div class="w-full h-full device-frame rounded-[2.5rem] bg-[#1c1c1e] p-[6px] overflow-hidden transition-transform duration-700 hover:scale-[1.02]">
-                <div class="w-full h-full rounded-[2.2rem] bg-[#fcf5ee] overflow-hidden relative">
+<div class="w-full h-full device-frame rounded-[2rem] bg-[#1c1c1e] p-[3px] overflow-hidden transition-transform duration-700 hover:scale-[1.02]">
+                <div class="w-full h-full rounded-[1.8rem] bg-[#fcf5ee] overflow-hidden relative">
                     <!-- Screen Content -->
                     <img alt="Menu Digital Sutherland" class="w-full h-full object-cover" src="{{ asset('assets/images/menu-sutherland.png') }}?v=4"/>
                 </div>
 <!-- Dynamic Island Mockup -->
-<div class="absolute top-[3.5cqw] left-1/2 -translate-x-1/2 w-[28cqw] h-[5cqw] bg-black rounded-full"></div>
+<div class="absolute top-[2.5cqw] left-1/2 -translate-x-1/2 w-[25cqw] h-[4cqw] bg-black rounded-full"></div>
 </div>
 <!-- Floating Enhanced Glassmorphism Badge -->
 <div class="absolute -right-[25cqw] top-[20%] glass-card p-[4.5cqw] rounded-[5cqw] flex items-center gap-[3.5cqw] w-[65cqw] z-30 transition-all duration-500 hover:translate-x-[-4px]">
