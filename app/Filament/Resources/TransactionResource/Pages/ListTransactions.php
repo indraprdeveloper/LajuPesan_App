@@ -3,7 +3,10 @@
 namespace App\Filament\Resources\TransactionResource\Pages;
 
 use App\Filament\Resources\TransactionResource;
+use App\Models\User;
 use Filament\Actions;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\Auth;
 use Filament\Notifications\Notification;
@@ -15,6 +18,49 @@ class ListTransactions extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            Actions\Action::make('cetakPdf')
+                ->label('Cetak Laporan')
+                ->icon('heroicon-o-document-arrow-down')
+                ->color('primary')
+                ->form([
+                    DatePicker::make('start_date')
+                        ->label('Tanggal Mulai')
+                        ->required()
+                        ->native(false)
+                        ->displayFormat('d/m/Y')
+                        ->default(now()->startOfMonth()),
+                    DatePicker::make('end_date')
+                        ->label('Tanggal Akhir')
+                        ->required()
+                        ->native(false)
+                        ->displayFormat('d/m/Y')
+                        ->default(now()),
+                    Select::make('user_id')
+                        ->label('Toko')
+                        ->options(User::where('role', 'store')->pluck('name', 'id'))
+                        ->placeholder('Semua Toko')
+                        ->searchable()
+                        ->visible(fn () => Auth::user()->role === 'admin'),
+                ])
+                ->action(function (array $data) {
+                    $params = [
+                        'start_date' => $data['start_date'],
+                        'end_date' => $data['end_date'],
+                    ];
+
+                    if (!empty($data['user_id'])) {
+                        $params['user_id'] = $data['user_id'];
+                    }
+
+                    $url = route('transaksi.cetak-pdf', $params);
+
+                    return redirect($url);
+                })
+                ->modalHeading('Cetak Laporan Transaksi')
+                ->modalDescription('Pilih rentang tanggal untuk mencetak laporan transaksi dalam format PDF.')
+                ->modalSubmitActionLabel('Cetak PDF')
+                ->modalIcon('heroicon-o-document-arrow-down'),
+
             Actions\CreateAction::make()
                 ->label('Buat Transaksi'),
         ];

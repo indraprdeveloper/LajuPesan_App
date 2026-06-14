@@ -169,7 +169,14 @@ class TransactionResource extends Resource
                         'success' => 'Berhasil',
                         'failed' => 'Gagal',
                         default => $state,
-    }),
+                    })
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'pending' => 'warning',
+                        'success' => 'success',
+                        'failed' => 'danger',
+                        default => 'gray',
+                    }),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Tanggal Transaksi')
