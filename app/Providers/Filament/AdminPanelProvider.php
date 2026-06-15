@@ -18,6 +18,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Filament\Widgets\DashboardOverview;
+use App\Filament\Widgets\StoreQrCodeWidget;
 use App\Filament\Pages\Auth\Register;
 use App\Filament\Pages\Auth\EmailVerificationPrompt;
 
@@ -229,7 +230,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                DashboardOverview::class
+                DashboardOverview::class,
+                StoreQrCodeWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

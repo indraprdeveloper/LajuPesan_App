@@ -7,11 +7,16 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TransactionPdfController;
+use App\Http\Controllers\StoreQrCodeController;
 use App\Models\User;
 
 Route::get('/transaksi/cetak-pdf', [TransactionPdfController::class, 'export'])
     ->middleware(['auth', 'verified'])
     ->name('transaksi.cetak-pdf');
+
+Route::get('/store/qr-code/download', [StoreQrCodeController::class, 'download'])
+    ->middleware(['auth', 'verified'])
+    ->name('store.qr-code.download');
 
 Route::get('/sitemap.xml', function () {
     $users = User::whereNotNull('username')->get();
