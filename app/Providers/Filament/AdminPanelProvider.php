@@ -73,6 +73,13 @@ class AdminPanelProvider extends PanelProvider
                                 margin-left: 0.75rem !important;
                                 margin-right: 0.75rem !important;
                             }
+                            .cetak-pdf-modal .fi-modal-header > div {
+                                align-items: center !important;
+                            }
+                            .cetak-pdf-modal .fi-modal-heading {
+                                font-size: 1rem !important;
+                                white-space: nowrap !important;
+                            }
                             .cetak-pdf-modal label span,
                             .cetak-pdf-modal label {
                                 font-size: 0.8rem !important;
