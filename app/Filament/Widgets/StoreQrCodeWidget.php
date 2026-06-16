@@ -27,7 +27,7 @@ class StoreQrCodeWidget extends Widget
             return '';
         }
 
-        $storeUrl = route('index', ['username' => $user->username]);
+        $storeUrl = route('index', ['username' => trim($user->username)]);
 
         $logoPath = null;
         if ($user->logo) {
@@ -78,6 +78,6 @@ class StoreQrCodeWidget extends Widget
     public function getStoreUrl(): string
     {
         $user = Auth::user();
-        return $user ? route('index', ['username' => $user->username]) : url('/');
+        return $user ? route('index', ['username' => trim($user->username)]) : url('/');
     }
 }

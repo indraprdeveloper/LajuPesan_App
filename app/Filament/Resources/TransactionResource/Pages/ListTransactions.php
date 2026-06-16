@@ -6,6 +6,7 @@ use App\Filament\Resources\TransactionResource;
 use App\Models\User;
 use Filament\Actions;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\Auth;
@@ -23,24 +24,30 @@ class ListTransactions extends ListRecords
                 ->icon('heroicon-o-document-arrow-down')
                 ->color('primary')
                 ->form([
-                    DatePicker::make('start_date')
-                        ->label('Tanggal Mulai')
-                        ->required()
-                        ->native(false)
-                        ->displayFormat('d/m/Y')
-                        ->default(now()->startOfMonth()),
-                    DatePicker::make('end_date')
-                        ->label('Tanggal Akhir')
-                        ->required()
-                        ->native(false)
-                        ->displayFormat('d/m/Y')
-                        ->default(now()),
+                    Grid::make([
+                        'default' => 2,
+                    ])
+                    ->schema([
+                        DatePicker::make('start_date')
+                            ->label('Tanggal Mulai')
+                            ->required()
+                            ->native(false)
+                            ->displayFormat('d/m/Y')
+                            ->default(now()->startOfMonth()),
+                        DatePicker::make('end_date')
+                            ->label('Tanggal Akhir')
+                            ->required()
+                            ->native(false)
+                            ->displayFormat('d/m/Y')
+                            ->default(now()),
+                    ]),
                     Select::make('user_id')
                         ->label('Toko')
                         ->options(User::where('role', 'store')->pluck('name', 'id'))
                         ->placeholder('Semua Toko')
                         ->searchable()
-                        ->visible(fn () => Auth::user()->role === 'admin'),
+                        ->visible(fn () => Auth::user()->role === 'admin')
+                        ->columnSpanFull(),
                 ])
                 ->action(function (array $data) {
                     $params = [
@@ -58,7 +65,7 @@ class ListTransactions extends ListRecords
                 })
                 ->modalHeading('Cetak Laporan Transaksi')
                 ->modalDescription('Pilih rentang tanggal untuk mencetak laporan transaksi dalam format PDF.')
-                ->modalSubmitActionLabel('Cetak PDF')
+                ->modalSubmitAction(fn ($action) => $action->label('Cetak PDF')->icon('heroicon-m-arrow-down-tray'))
                 ->modalIcon('heroicon-o-document-arrow-down'),
 
             Actions\CreateAction::make()

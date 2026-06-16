@@ -94,6 +94,83 @@ class AdminPanelProvider extends PanelProvider
                                 word-break: break-word !important;
                             }
                         }
+
+
+                        /* Custom Store QR Code Widget styling */
+                        .qr-code-widget-wrapper {
+                            display: flex !important;
+                            flex-direction: row !important;
+                            align-items: center !important;
+                            gap: 2rem !important;
+                            width: 100% !important;
+                        }
+                        .qr-code-panel {
+                            flex-shrink: 0 !important;
+                            display: flex !important;
+                            flex-direction: column !important;
+                            align-items: center !important;
+                            gap: 0.75rem !important;
+                        }
+                        .qr-code-details {
+                            flex: 1 1 0% !important;
+                            text-align: left !important;
+                        }
+                        .qr-code-details h2 {
+                            text-align: left !important;
+                        }
+                        .qr-code-details p {
+                            text-align: left !important;
+                            margin-left: 0 !important;
+                            margin-right: auto !important;
+                        }
+                        .qr-code-buttons {
+                            display: flex !important;
+                            flex-direction: row !important;
+                            flex-wrap: wrap !important;
+                            align-items: center !important;
+                            justify-content: flex-start !important;
+                            gap: 0.75rem !important;
+                            width: 100% !important;
+                        }
+                        .qr-code-btn {
+                            display: inline-flex !important;
+                            align-items: center !important;
+                            justify-content: center !important;
+                            width: auto !important;
+                            white-space: nowrap !important;
+                            flex-shrink: 0 !important;
+                        }
+
+                        @media (max-width: 639px) {
+                            .qr-code-widget-wrapper {
+                                flex-direction: column !important;
+                                gap: 1.5rem !important;
+                            }
+                            .qr-code-panel {
+                                width: 100% !important;
+                            }
+                            .qr-code-details {
+                                text-align: center !important;
+                                width: 100% !important;
+                            }
+                            .qr-code-details h2 {
+                                text-align: center !important;
+                            }
+                            .qr-code-details p {
+                                text-align: center !important;
+                                margin-left: auto !important;
+                                margin-right: auto !important;
+                            }
+                            .qr-code-buttons {
+                                flex-direction: column !important;
+                                align-items: stretch !important;
+                                width: 100% !important;
+                            }
+                            .qr-code-btn {
+                                width: 100% !important;
+                                justify-content: center !important;
+                            }
+                        }
                     </style>
 
                     <script>
