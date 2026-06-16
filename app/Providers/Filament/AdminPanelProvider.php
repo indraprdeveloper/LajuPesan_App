@@ -75,12 +75,34 @@ class AdminPanelProvider extends PanelProvider
                             padding-right: 1.5rem !important;
                         }
                         .cetak-pdf-modal .fi-modal-header {
+                            display: grid !important;
+                            grid-template-columns: auto 1fr !important;
+                            grid-template-rows: auto auto !important;
+                            column-gap: 1.25rem !important;
+                            row-gap: 0.25rem !important;
                             align-items: center !important;
                         }
+                        .cetak-pdf-modal .fi-modal-header > div:has(.fi-modal-icon) {
+                            grid-column: 1 / 2 !important;
+                            grid-row: 1 / 2 !important;
+                            align-self: center !important;
+                        }
+                        .cetak-pdf-modal .fi-modal-header > div:has(.fi-modal-heading) {
+                            display: contents !important;
+                        }
                         .cetak-pdf-modal .fi-modal-heading {
+                            grid-column: 2 / 3 !important;
+                            grid-row: 1 / 2 !important;
+                            align-self: center !important;
                             font-size: 1.1rem !important;
                             font-weight: 600 !important;
                             white-space: nowrap !important;
+                        }
+                        .cetak-pdf-modal .fi-modal-description {
+                            grid-column: 2 / 3 !important;
+                            grid-row: 2 / 3 !important;
+                            align-self: start !important;
+                            margin: 0 !important;
                         }
                         .cetak-pdf-modal .grid {
                             gap: 0.5rem !important;
