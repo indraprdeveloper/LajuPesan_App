@@ -65,7 +65,52 @@ class AdminPanelProvider extends PanelProvider
                             color: rgb(var(--primary-400)) !important;
                         }
 
-                        /* Custom Cetak PDF Modal Styling for Mobile */
+                        /* Custom Cetak PDF Modal Styling (All Screen Sizes) */
+                        .cetak-pdf-modal .fi-modal-content {
+                            padding-left: 1.5rem !important;
+                            padding-right: 1.5rem !important;
+                        }
+                        .cetak-pdf-modal .fi-modal-footer {
+                            padding-left: 1.5rem !important;
+                            padding-right: 1.5rem !important;
+                        }
+                        .cetak-pdf-modal .fi-modal-header {
+                            align-items: center !important;
+                        }
+                        .cetak-pdf-modal .fi-modal-heading {
+                            font-size: 1.1rem !important;
+                            font-weight: 600 !important;
+                            white-space: nowrap !important;
+                        }
+                        .cetak-pdf-modal .grid {
+                            gap: 0.5rem !important;
+                        }
+                        .cetak-pdf-modal label span,
+                        .cetak-pdf-modal label {
+                            font-size: 0.85rem !important;
+                            white-space: nowrap !important;
+                        }
+                        .cetak-pdf-modal input {
+                            font-size: 0.8rem !important;
+                            padding-left: 0.5rem !important;
+                            padding-right: 1.75rem !important;
+                        }
+                        .cetak-pdf-modal .fi-modal-footer-actions {
+                            display: flex !important;
+                            flex-direction: column !important;
+                            width: 100% !important;
+                            gap: 0.75rem !important;
+                        }
+                        .cetak-pdf-modal .fi-modal-footer-actions > button,
+                        .cetak-pdf-modal .fi-modal-footer-actions > a,
+                        .cetak-pdf-modal .fi-modal-footer-actions > div {
+                            width: 100% !important;
+                            display: flex !important;
+                            justify-content: center !important;
+                            margin: 0 !important;
+                        }
+
+                        /* Additional Mobile Optimization */
                         @media (max-width: 639px) {
                             .cetak-pdf-modal {
                                 width: calc(100% - 1.5rem) !important;
@@ -73,40 +118,17 @@ class AdminPanelProvider extends PanelProvider
                                 margin-left: 0.75rem !important;
                                 margin-right: 0.75rem !important;
                             }
-                            .cetak-pdf-modal .fi-modal-header > div {
-                                align-items: center !important;
-                            }
                             .cetak-pdf-modal .fi-modal-heading {
                                 font-size: 1rem !important;
-                                white-space: nowrap !important;
                             }
                             .cetak-pdf-modal label span,
                             .cetak-pdf-modal label {
                                 font-size: 0.8rem !important;
-                                white-space: nowrap !important;
                             }
                             .cetak-pdf-modal input {
-                                font-size: 0.8rem !important;
-                                padding-left: 0.5rem !important;
-                                padding-right: 1.75rem !important;
-                            }
-                            .cetak-pdf-modal .fi-modal-footer {
-                                display: block !important;
-                                width: 100% !important;
-                            }
-                            .cetak-pdf-modal .fi-modal-footer-actions {
-                                display: flex !important;
-                                flex-direction: column !important;
-                                width: 100% !important;
-                                gap: 0.75rem !important;
-                            }
-                            .cetak-pdf-modal .fi-modal-footer-actions > button,
-                            .cetak-pdf-modal .fi-modal-footer-actions > a,
-                            .cetak-pdf-modal .fi-modal-footer-actions > div {
-                                width: 100% !important;
-                                display: flex !important;
-                                justify-content: center !important;
-                                margin: 0 !important;
+                                font-size: 0.75rem !important;
+                                padding-left: 0.375rem !important;
+                                padding-right: 1.5rem !important;
                             }
                         }
 
