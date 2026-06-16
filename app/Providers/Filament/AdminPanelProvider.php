@@ -65,6 +65,44 @@ class AdminPanelProvider extends PanelProvider
                             color: rgb(var(--primary-400)) !important;
                         }
 
+                        /* Custom Cetak PDF Modal Styling for Mobile */
+                        @media (max-width: 639px) {
+                            .cetak-pdf-modal {
+                                width: calc(100% - 1.5rem) !important;
+                                max-width: none !important;
+                                margin-left: 0.75rem !important;
+                                margin-right: 0.75rem !important;
+                            }
+                            .cetak-pdf-modal label span,
+                            .cetak-pdf-modal label {
+                                font-size: 0.8rem !important;
+                                white-space: nowrap !important;
+                            }
+                            .cetak-pdf-modal input {
+                                font-size: 0.8rem !important;
+                                padding-left: 0.5rem !important;
+                                padding-right: 1.75rem !important;
+                            }
+                            .cetak-pdf-modal .fi-modal-footer {
+                                display: block !important;
+                                width: 100% !important;
+                            }
+                            .cetak-pdf-modal .fi-modal-footer-actions {
+                                display: flex !important;
+                                flex-direction: column !important;
+                                width: 100% !important;
+                                gap: 0.75rem !important;
+                            }
+                            .cetak-pdf-modal .fi-modal-footer-actions > button,
+                            .cetak-pdf-modal .fi-modal-footer-actions > a,
+                            .cetak-pdf-modal .fi-modal-footer-actions > div {
+                                width: 100% !important;
+                                display: flex !important;
+                                justify-content: center !important;
+                                margin: 0 !important;
+                            }
+                        }
+
                         /* Perbaikan Sidebar Mobile */
                         @media (max-width: 1023px) {
                             /* Lebar maksimal sidebar mobile agar menyisakan ruang tutup */

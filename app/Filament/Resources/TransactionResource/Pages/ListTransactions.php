@@ -66,7 +66,8 @@ class ListTransactions extends ListRecords
                 ->modalHeading('Cetak Laporan Transaksi')
                 ->modalDescription('Pilih rentang tanggal untuk mencetak laporan transaksi dalam format PDF.')
                 ->modalSubmitAction(fn ($action) => $action->label('Cetak PDF')->icon('heroicon-m-arrow-down-tray'))
-                ->modalIcon('heroicon-o-document-arrow-down'),
+                ->modalIcon('heroicon-o-document-arrow-down')
+                ->extraModalWindowAttributes(['class' => 'cetak-pdf-modal']),
 
             Actions\CreateAction::make()
                 ->label('Buat Transaksi'),
