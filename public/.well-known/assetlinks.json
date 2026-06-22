@@ -3,6 +3,10 @@
   "target": {
     "namespace": "android_app",
     "package_name": "com.lajupesan.app",
-    "sha256_cert_fingerprints": ["EE:47:B0:5B:32:08:0A:B6:DB:73:10:42:65:B2:29:8F:10:77:C5:92:0F:A8:18:47:88:DA:10:F3:37:41:DC:E4"]
+    "sha256_cert_fingerprints": [
+      "AA:F5:13:05:EE:3E:33:80:19:87:2C:5D:A4:D0:32:74:46:62:8D:A6:1C:ED:E6:C8:55:A4:52:B7:72:E2:E2:F5",
+      "41:4B:E9:56:8F:A0:5A:4D:EE:41:99:3D:77:C8:42:A8:C3:50:9B:91:DE:06:A2:55:64:57:35:F3:98:65:36:4C"
+    ]
   }
 }]
+
