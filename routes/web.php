@@ -48,6 +48,10 @@ Route::get('/sitemap.xml', function () {
     ]);
 });
 
+Route::get('/privacy-policy', function () {
+    return view('privacy-policy');
+})->name('privacy-policy');
+
 Route::get('/', [AuthController::class, 'welcome'])->name('welcome');
 
 Route::get('/{username}', [FrontendController::class, 'index'])
