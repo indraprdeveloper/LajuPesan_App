@@ -11,7 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 use Illuminate\Support\Facades\Auth;
 
 class UserResource extends Resource
@@ -50,7 +50,8 @@ class UserResource extends Resource
                  ->label('Email')
                  ->email()
                  ->unique(ignoreRecord: true)
-                 ->required(),
+                 ->required()
+                 ->disabled(fn (string $operation): bool => $operation === 'edit'),
                  Forms\Components\TextInput::make('password')
                  ->label('Password')
                  ->password()
@@ -90,13 +91,13 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\ForceDeleteAction::make()
-                    ->label('Hapus Permanen'),
+                Tables\Actions\DeleteAction::make()
+                    ->label('Hapus'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\ForceDeleteBulkAction::make()
-                        ->label('Hapus Permanen'),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->label('Hapus'),
                 ]),
             ]);
     }

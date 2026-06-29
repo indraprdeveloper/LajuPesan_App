@@ -14,7 +14,7 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'logo' => 'assets/images/logolajupesan.png',
+            'logo' => 'assets/images/profillajupesan.jpeg',
             'name' => 'LajuPesan',
             'username' => 'lajupesan',
             'email' => 'lajupesan@gmail.com',
