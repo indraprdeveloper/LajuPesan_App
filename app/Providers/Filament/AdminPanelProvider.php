@@ -199,6 +199,36 @@ class AdminPanelProvider extends PanelProvider
                             flex-direction: column !important;
                             align-items: center !important;
                             gap: 0.75rem !important;
+                            background-color: rgba(249, 250, 251, 0.7) !important;
+                            border: 1px solid #f3f4f6 !important;
+                            padding: 1.25rem !important;
+                            border-radius: 1rem !important;
+                            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important;
+                        }
+                        .dark .qr-code-panel {
+                            background-color: rgba(30, 41, 59, 0.4) !important;
+                            border: 1px solid #334155 !important;
+                            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+                        }
+                        #qr-code-container {
+                            background-color: #ffffff !important;
+                            border: 1px solid #f3f4f6 !important;
+                            border-radius: 0.75rem !important;
+                            padding: 0.75rem !important;
+                        }
+                        .dark #qr-code-container {
+                            border: 1px solid #334155 !important;
+                            background-color: #ffffff !important;
+                        }
+                        .qr-url-badge {
+                            background-color: #fef3c7 !important;
+                            color: #b45309 !important;
+                            border: 1px solid #fde68a !important;
+                        }
+                        .dark .qr-url-badge {
+                            background-color: rgba(217, 119, 6, 0.15) !important;
+                            color: #fbbf24 !important;
+                            border-color: rgba(217, 119, 6, 0.3) !important;
                         }
                         .qr-code-details {
                             flex: 1 1 0% !important;
@@ -228,6 +258,54 @@ class AdminPanelProvider extends PanelProvider
                             width: auto !important;
                             white-space: nowrap !important;
                             flex-shrink: 0 !important;
+                        }
+                        .qr-code-btn-primary {
+                            background-color: #d97706 !important;
+                            color: #ffffff !important;
+                            border: 1px solid transparent !important;
+                        }
+                        .qr-code-btn-primary:hover {
+                            background-color: #b45309 !important;
+                        }
+                        .dark .qr-code-btn-primary {
+                            background-color: #d97706 !important;
+                            color: #ffffff !important;
+                        }
+                        .dark .qr-code-btn-primary:hover {
+                            background-color: #c2410c !important;
+                        }
+                        .qr-code-btn-secondary {
+                            background-color: #ffffff !important;
+                            color: #374151 !important;
+                            border: 1px solid #d1d5db !important;
+                        }
+                        .qr-code-btn-secondary:hover {
+                            background-color: #f9fafb !important;
+                            color: #111827 !important;
+                        }
+                        .dark .qr-code-btn-secondary {
+                            background-color: #1f2937 !important;
+                            color: #e5e7eb !important;
+                            border: 1px solid #4b5563 !important;
+                        }
+                        .dark .qr-code-btn-secondary:hover {
+                            background-color: #374151 !important;
+                            color: #ffffff !important;
+                        }
+                        .qr-code-btn-outline {
+                            background-color: transparent !important;
+                            color: #d97706 !important;
+                            border: 1.5px solid #d97706 !important;
+                        }
+                        .qr-code-btn-outline:hover {
+                            background-color: rgba(217, 119, 6, 0.05) !important;
+                        }
+                        .dark .qr-code-btn-outline {
+                            color: #fbbf24 !important;
+                            border-color: #fbbf24 !important;
+                        }
+                        .dark .qr-code-btn-outline:hover {
+                            background-color: rgba(251, 191, 36, 0.05) !important;
                         }
 
                         @media (max-width: 639px) {
