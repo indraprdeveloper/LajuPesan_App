@@ -31,10 +31,7 @@ class Register extends BaseRegister
         // Kirim email verifikasi otomatis
         $user->sendEmailVerificationNotification();
 
-        // Redirect ke halaman verifikasi email
-        $this->redirect(route('filament.admin.auth.email-verification.prompt'));
-
-        return null;
+        return app(RegistrationResponse::class);
     }
     protected function getForms(): array
     {
