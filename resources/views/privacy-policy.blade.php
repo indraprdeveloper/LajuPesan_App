@@ -4,6 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
     <title>Privacy Policy - LajuPesan</title>
+    <link rel="canonical" href="{{ rtrim(config('app.url'), '/') . '/' . ltrim(request()->path(), '/') }}"/>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
     <style>

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ isset($store) ? $store->name : 'LajuPesan' }}</title>
+    <link rel="canonical" href="{{ rtrim(config('app.url'), '/') . '/' . ltrim(request()->path(), '/') }}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

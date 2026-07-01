@@ -4,6 +4,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
 <title>LajuPesan</title>
+<link rel="canonical" href="{{ rtrim(config('app.url'), '/') . '/' . ltrim(request()->path(), '/') }}"/>
 <link rel="icon" type="image/png" href="{{ asset('assets/images/logolajupesan.png') }}"/>
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#2563eb">
