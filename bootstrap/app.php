@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             'livewire/*',
         ]);
+        $middleware->append(\App\Http\Middleware\ProtectDomain::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
