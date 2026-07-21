@@ -90,11 +90,7 @@ class CustomPasswordReset extends SimplePage
         // Hapus cache OTP
         Cache::forget('otp_reset_' . $this->email);
 
-        Notification::make()
-            ->title('Berhasil')
-            ->body('Kata sandi berhasil diubah. Silakan login.')
-            ->success()
-            ->send();
+        session()->flash('password_reset_success', true);
 
         return redirect()->route('filament.admin.auth.login');
     }

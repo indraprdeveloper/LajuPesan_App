@@ -149,6 +149,16 @@
                     <p class="font-body-md text-body-md text-on-surface-variant">Masuk untuk mengelola restoran Anda.</p>
                 </header>
 
+                @if (session('password_reset_success'))
+                <div class="mb-md bg-emerald-50 border border-emerald-200 rounded-xl p-3 flex items-center gap-3" x-data="{ show: true }" x-show="show" x-transition>
+                    <span class="material-symbols-outlined text-emerald-600 text-[20px]" data-icon="check_circle">check_circle</span>
+                    <p class="text-emerald-700 font-body-md text-sm font-medium flex-1">Kata sandi berhasil diubah. Silakan login dengan sandi baru.</p>
+                    <button @click="show = false" class="text-emerald-400 hover:text-emerald-600 transition-colors" type="button">
+                        <span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+                    </button>
+                </div>
+                @endif
+
                 <form wire:submit="authenticate" class="space-y-md"novalidate>
                     <!-- Email Input -->
                     <div class="space-y-xs">
