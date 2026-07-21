@@ -3,7 +3,9 @@
 <html class="light" lang="id"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
-<title>LajuPesan</title>
+<title>LajuPesan - Menu Digital & QR Order untuk Bisnis F&B Indonesia</title>
+<meta name="description" content="LajuPesan adalah platform menu digital dan QR order untuk bisnis F&B Indonesia. Setup 5 menit, gratis selamanya. Menu QR, order otomatis, dan pembayaran digital dalam satu platform."/>
+<meta name="keywords" content="lajupesan, menu digital, qr menu, order makanan online, aplikasi restoran, menu qr code, digital menu indonesia, qr order makanan"/>
 <link rel="canonical" href="{{ rtrim(config('app.url'), '/') . '/' . ltrim(request()->path(), '/') }}"/>
 <link rel="icon" type="image/png" href="{{ asset('assets/images/logolajupesan.png') }}"/>
 <link rel="manifest" href="/manifest.json">

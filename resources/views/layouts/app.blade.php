@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ isset($store) ? $store->name : 'LajuPesan' }}</title>
+    <title>{{ isset($store) ? $store->name . ' - Menu Digital | LajuPesan' : 'LajuPesan - Menu Digital & QR Order untuk Bisnis F&B Indonesia' }}</title>
+    <meta name="description" content="{{ isset($store) ? 'Menu digital ' . $store->name . ' - Pesan makanan & minuman online via QR code di LajuPesan. Lihat menu, pesan langsung, dan bayar dengan mudah.' : 'LajuPesan adalah platform menu digital dan QR order untuk bisnis F&B Indonesia. Setup 5 menit, gratis selamanya.' }}"/>
+    <meta name="keywords" content="lajupesan, menu digital{{ isset($store) ? ', ' . $store->name . ', menu ' . $store->name : '' }}, qr menu, order makanan online, digital menu indonesia"/>
     <link rel="canonical" href="{{ rtrim(config('app.url'), '/') . '/' . ltrim(request()->path(), '/') }}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
