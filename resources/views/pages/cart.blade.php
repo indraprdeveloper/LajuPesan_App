@@ -22,7 +22,7 @@
                     <div class="flex flex-col gap-1 w-full">
                         <div class="flex items-center justify-between">
                             <p class="text-[#F3AF00] font-[400] text-[12px]">
-                                {{ $product->productCategory->name }}
+                                {{ $product->productCategory?->name ?? 'Tanpa Kategori' }}
                             </p>
 
                             <a href="#" class="text-[#FF001A] font-[400] text-[12px] ml-2"

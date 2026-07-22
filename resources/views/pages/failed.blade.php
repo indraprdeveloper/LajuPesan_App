@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="flex flex-col gap-1 w-full">
                                     <p class="text-[#F3AF00] font-[400] text-[12px]">
-                                        {{ $transactionDetail->product->productCategory->name }}
+                                        {{ $transactionDetail->product?->productCategory?->name ?? 'Tanpa Kategori' }}
                                     </p>
                                     <h3 class="text-[#353535] font-[500] text-[14px]">
                                         {{ $transactionDetail->product->name }}

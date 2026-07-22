@@ -236,7 +236,7 @@
                                 </div>
                                 <div class="flex flex-col gap-1">
                                     <p class="text-[#F3AF00] font-[400] text-[12px]">
-                                        {{ $popular->productCategory->name }}
+                                        {{ $popular->productCategory?->name ?? 'Tanpa Kategori' }}
                                     </p>
                                     <h3 class="text-[#353535] font-[500] text-[14px]">
                                         {{ $popular->name }}
@@ -281,7 +281,7 @@
                             alt="icon">
                         <div class="flex flex-col gap-1 w-full">
                             <p class="text-[#F3AF00] font-[400] text-[12px]">
-                                {{ $product->productCategory->name }}
+                                {{ $product->productCategory?->name ?? 'Tanpa Kategori' }}
                             </p>
                             <h3 class="text-[#353535] font-[500] text-[14px]">
                                 {{ $product->name }}

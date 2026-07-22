@@ -44,7 +44,7 @@
                             <img src="{{ asset('storage/' . $detail->product->image) }}" class="w-[40px] h-[40px] object-cover" alt="{{ $detail->product->name }}">
                         </div>
                         <div class="flex-1 min-w-0">
-                            <p class="text-[#F3AF00] text-[10px]">{{ $detail->product->productCategory->name }}</p>
+                            <p class="text-[#F3AF00] text-[10px]">{{ $detail->product?->productCategory?->name ?? 'Tanpa Kategori' }}</p>
                             <h3 class="text-[#353535] font-semibold text-[13px] truncate">{{ $detail->product->name }}</h3>
                             <p class="text-[#888] text-[10px]">x{{ $detail->quantity }}</p>
                         </div>

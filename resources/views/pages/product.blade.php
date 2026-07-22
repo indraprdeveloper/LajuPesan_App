@@ -27,7 +27,7 @@
         <div class="flex flex-col w-full px-5 py-5 gap-5 bg-white rounded-t-[20px] shadow-sm mt-[-20px] z-10">
             <div id="Title">
                 <p class="text-[#F3AF00] font-[400] text-[12px]">
-                    {{ $product->productCategory->name }}
+                    {{ $product->productCategory?->name ?? 'Tanpa Kategori' }}
                 </p>
                 <h1 class="text-[26px] font-semibold">{{ $product->name }}</h1>
                 <p class="text-[#606060] font-[400] text-[14px]">
