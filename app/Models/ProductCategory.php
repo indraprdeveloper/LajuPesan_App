@@ -24,14 +24,14 @@ class ProductCategory extends Model
 
         static::creating(function ($model) {
 
-            if (Auth::user()->role === 'store') {
+            if (Auth::user()?->role === 'store') {
                 $model->user_id = Auth::user()->id;
             }
             $model->slug = Str::slug($model->name);
         });
         static::updating(function ($model) {
 
-            if (Auth::user()->role === 'store') {
+            if (Auth::user()?->role === 'store') {
                 $model->user_id = Auth::user()->id;
             }
             $model->slug = Str::slug($model->name);

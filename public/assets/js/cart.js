@@ -1,6 +1,12 @@
+
+const getCartKey = () => {
+    const storeName = window.location.pathname.split('/')[1];
+    return `cart_${storeName}`;
+};
+
 document.addEventListener("DOMContentLoaded", function () {
     // Ambil data cart dari localStorage
-    const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartData = JSON.parse(localStorage.getItem(getCartKey())) || [];
 
     // Filter produk berdasarkan ID di cartData
     const cartItems = document.querySelectorAll(".cart-item");

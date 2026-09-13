@@ -17,8 +17,8 @@ class FrontendController extends Controller
             abort(404);
         }
 
-        $populars = Product::where('user_id', $store->id)->where('is_popular', true)->get();
-        $products = Product::where('user_id', $store->id)->where('is_popular', false)->get();
+        $populars = Product::where('user_id', $store->id)->where('is_available', true)->where('is_popular', true)->get();
+        $products = Product::where('user_id', $store->id)->where('is_available', true)->where('is_popular', false)->get();
 
         // Ambil daftar ID pesanan khusus dari HP/Browser ini saja
         $userTransactions = json_decode($request->cookie('user_transactions', '[]'), true);

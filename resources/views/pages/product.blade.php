@@ -104,7 +104,7 @@
 
                 <button type="button"
                     class="flex justify-center items-center rounded-full px-5 py-3 bg-[#FF801A] font-medium text-white text-sm whitespace-nowrap shrink-0"
-                    data-id="{{ $product->id }}" onclick="addToCart(this.dataset.id)">
+                    data-id="{{ $product->id }}" onclick="addToCart(event, this.dataset.id)">
                     Tambah ke Keranjang
                 </button>
             </div>

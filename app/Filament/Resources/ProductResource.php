@@ -110,6 +110,11 @@ class ProductResource extends Resource
                 Forms\Components\Toggle::make('is_popular')
                     ->label('Populer Menu')
                     ->required(),
+                Forms\Components\Toggle::make('is_available')
+                    ->label('Status Ketersediaan')
+                    ->helperText('Aktifkan jika menu tersedia, matikan jika bahan baku habis.')
+                    ->default(true)
+                    ->required(),
                 Forms\Components\Repeater::make('productIngredients')
                     ->label('Bahan Baku Menu')
                     ->relationship('productIngredients')
@@ -130,6 +135,9 @@ class ProductResource extends Resource
                     ->hidden(fn() => Auth::user()->role === 'store'),
                 Tables\Columns\TextColumn::make('productCategory.name')
                     ->label('Kategori Menu'),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Nama Menu')
+                    ->searchable(),
                 Tables\Columns\ImageColumn::make('image')
                     ->label('Foto Menu'),
                 Tables\Columns\TextColumn::make('price')
@@ -139,6 +147,9 @@ class ProductResource extends Resource
                     }),
                 Tables\Columns\ToggleColumn::make('is_popular')
                     ->label('Populer Menu')
+                    ->disabled(fn() => Auth::user()->role === 'admin'),
+                Tables\Columns\ToggleColumn::make('is_available')
+                    ->label('Tersedia')
                     ->disabled(fn() => Auth::user()->role === 'admin'),
             ])
             ->filters([
@@ -155,6 +166,11 @@ class ProductResource extends Resource
                             ->pluck('name', 'id');
                     })
                     ->label('Kategori Menu'),
+                Tables\Filters\TernaryFilter::make('is_available')
+                    ->label('Status Ketersediaan')
+                    ->placeholder('Semua')
+                    ->trueLabel('Hanya Tersedia')
+                    ->falseLabel('Stok Habis'),
             ])
             ->recordUrl(fn($record) => Auth::user()->role === 'admin'
                 ? null

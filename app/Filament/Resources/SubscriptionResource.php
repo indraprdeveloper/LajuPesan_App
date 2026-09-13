@@ -105,9 +105,7 @@ class SubscriptionResource extends Resource
                     ->label('Tanggal Berakhir'),
                 Tables\Columns\ImageColumn::make('subscriptionPayment.proof')
                     ->label('Bukti Pembayaran'),
-                Tables\Columns\TextColumn::make('subscriptionPayment.status')
-                    ->dateTime()
-                    ->label('Status Pembayaran'),
+
                 Tables\Columns\TextColumn::make('subscriptionPayment.status')
                     ->label('Status Pembayaran')
                     ->formatStateUsing(fn (string $state): string => match ($state) {

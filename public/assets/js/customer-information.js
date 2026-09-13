@@ -1,3 +1,9 @@
+
+const getCartKey = () => {
+    const storeName = window.location.pathname.split('/')[1];
+    return `cart_${storeName}`;
+};
+
 const selectPayment = (paymentMethod) => {
     const paymentMethods = document.querySelectorAll('input[name="payment_method"]');
     paymentMethods.forEach((element) => {
@@ -24,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener("DOMContentLoaded", function () {
     // Ambil data cart dari localStorage
-    const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartData = JSON.parse(localStorage.getItem(getCartKey())) || [];
 
     // Filter produk berdasarkan ID di cartData
     const cartItems = document.querySelectorAll(".cart-item");
@@ -73,7 +79,7 @@ const btnSpinner = document.getElementById('btnSpinner');
 
 paymentForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = JSON.parse(localStorage.getItem(getCartKey())) || [];
     cartData.value = JSON.stringify(cart);
 
     // Cek metode pembayaran
@@ -93,7 +99,7 @@ paymentForm.addEventListener('submit', (event) => {
     if (paymentMethod.value === 'cash') {
         // Untuk pembayaran tunai, submit form biasa
         paymentForm.submit();
-        localStorage.removeItem("cart");
+        localStorage.removeItem(getCartKey());
     } else {
         // Untuk Midtrans, kirim via AJAX dan buka Snap Popup
         const formData = new FormData(paymentForm);
@@ -111,7 +117,7 @@ paymentForm.addEventListener('submit', (event) => {
             // Buka Snap Popup
             window.snap.pay(data.snap_token, {
                 onSuccess: function(result) {
-                    localStorage.removeItem("cart");
+                    localStorage.removeItem(getCartKey());
                     window.location.href = data.success_url;
                 },
                 onPending: function(result) {

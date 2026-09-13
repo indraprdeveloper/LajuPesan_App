@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +20,7 @@ use Filament\Panel;
 class User extends Authenticatable implements MustVerifyEmail, HasAvatar, FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -71,11 +72,11 @@ class User extends Authenticatable implements MustVerifyEmail, HasAvatar, Filame
     {
         parent::boot();
 
-        if (!Auth::check()) {
-            static::creating(function ($model) {
+        static::creating(function ($model) {
+            if (!Auth::check()) {
                 $model->role = 'store';
-            });
-        }
+            }
+        });
     }
 
     /**

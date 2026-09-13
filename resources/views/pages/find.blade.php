@@ -14,7 +14,6 @@
 
         <form action="{{ route('product.find-result', $store->username) }}"
             class="w-full flex flex-col rounded-[8px] border border-[#F1F2F6] p-5 gap-6 bg-white mt-6">
-            @csrf
             <div id="InputContainer" class="flex flex-col gap-[18px]">
                 <div class="flex flex-col w-full gap-2">
                     <p class="font-semibold">Nama Menu</p>

@@ -44,7 +44,7 @@
                             </p>
                             <button type="button"
                                 class="flex items-center justify-center w-[24px] h-[24px] rounded-full bg-transparent"
-                                data-id="{{ $product->id }}" onclick="addToCart(this.dataset.id)">
+                                data-id="{{ $product->id }}" onclick="addToCart(event, this.dataset.id)">
                                 <img src="{{ asset('assets/images/icons/ic_plus.svg') }}" class="w-full h-full" alt="icon">
                             </button>
                         </div>

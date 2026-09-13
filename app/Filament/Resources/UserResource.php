@@ -44,6 +44,7 @@ class UserResource extends Resource
                  ->label('Username')
                  ->hint('Minimal 5 karakter, tidak boleh ada spasi')
                  ->minLength(5)
+                 ->rules(['alpha_dash', 'not_in:admin,api,login,register,store,transaksi,sitemap.xml,privacy-policy,filament,up'])
                  ->unique(ignoreRecord: true)
                  ->required(),
                  Forms\Components\TextInput::make('email')

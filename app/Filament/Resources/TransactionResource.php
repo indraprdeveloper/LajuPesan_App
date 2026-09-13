@@ -18,6 +18,7 @@ use App\Models\Product;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Tables\Filters\SelectFilter;
+use App\Enums\TransactionStatus;
 
 class TransactionResource extends Resource
 {
@@ -60,7 +61,7 @@ class TransactionResource extends Resource
                     ->disabledOn('edit'),
                 Forms\Components\TextInput::make('code')
                     ->label('Kode Transaksi')
-                    ->default(fn(): string => 'TRX-' . mt_rand(10000, 99999))
+                    ->default(fn(): string => 'TRX-' . strtoupper(\Illuminate\Support\Str::random(8)))
                     ->readOnly()
                     ->required(),
                 Forms\Components\TextInput::make('name')
@@ -86,9 +87,9 @@ class TransactionResource extends Resource
                 Forms\Components\Select::make('status')
                     ->label('Status Pembayaran')
                     ->options([
-                        'pending' => 'Tertunda',
-                        'success' => 'Berhasil',
-                        'failed' => 'Gagal'
+                        TransactionStatus::PENDING->value => TransactionStatus::PENDING->getLabel(),
+                        TransactionStatus::SUCCESS->value => TransactionStatus::SUCCESS->getLabel(),
+                        TransactionStatus::FAILED->value => TransactionStatus::FAILED->getLabel(),
                     ])
                     ->required(),
 
@@ -165,16 +166,16 @@ class TransactionResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status Pembayaran')
                     ->formatStateUsing(fn(string $state): string => match ($state) {
-                        'pending' => 'Tertunda',
-                        'success' => 'Berhasil',
-                        'failed' => 'Gagal',
+                        TransactionStatus::PENDING->value => TransactionStatus::PENDING->getLabel(),
+                        TransactionStatus::SUCCESS->value => TransactionStatus::SUCCESS->getLabel(),
+                        TransactionStatus::FAILED->value => TransactionStatus::FAILED->getLabel(),
                         default => $state,
                     })
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
-                        'pending' => 'warning',
-                        'success' => 'success',
-                        'failed' => 'danger',
+                        TransactionStatus::PENDING->value => TransactionStatus::PENDING->getColor(),
+                        TransactionStatus::SUCCESS->value => TransactionStatus::SUCCESS->getColor(),
+                        TransactionStatus::FAILED->value => TransactionStatus::FAILED->getColor(),
                         default => 'gray',
                     }),
 
@@ -182,6 +183,10 @@ class TransactionResource extends Resource
                     ->label('Tanggal Transaksi')
                     ->dateTime('M d, Y H:i'),
 
+            ])
+            ->headerActions([
+                Tables\Actions\Action::make('fullscreen')
+                    ->view('filament.table-fullscreen-btn'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('user')
@@ -192,15 +197,15 @@ class TransactionResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make()
-                    ->hidden(fn ($record) => in_array($record->status, ['success', 'failed']) || $record->payment_method === 'midtrans'),
+                    ->hidden(fn ($record) => in_array($record->status, [TransactionStatus::SUCCESS->value, TransactionStatus::FAILED->value]) || $record->payment_method === 'midtrans'),
                 Tables\Actions\DeleteAction::make()
-                    ->visible(fn ($record) => $record->status === 'failed'),
+                    ->visible(fn ($record) => $record->status === TransactionStatus::FAILED->value),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                 ]),
             ])
-            ->recordUrl(fn ($record) => $record->status === 'pending' && $record->payment_method !== 'midtrans'
+            ->recordUrl(fn ($record) => $record->status === TransactionStatus::PENDING->value && $record->payment_method !== 'midtrans'
                 ? TransactionResource::getUrl('edit', ['record' => $record])
                 : null);
     }
@@ -230,18 +235,8 @@ class TransactionResource extends Resource
                     !empty($item['quantity'])
             );
 
-        // ambil harga produk berdasarkan id
-        $prices = Product::whereIn(
-            'id',
-            $selectedProducts->pluck('product_id')
-        )->pluck('price', 'id');
-
-        // hitung total transaksi
-        $total = $selectedProducts->reduce(function ($total, $product) use ($prices) {
-            return $total + (
-                ($prices[$product['product_id']] ?? 0) * $product['quantity']
-            );
-        }, 0);
+        $service = app(\App\Services\TransactionService::class);
+        $total = $service->calculateResourceTotal($selectedProducts);
 
         $set('total_price', (string) $total);
     }

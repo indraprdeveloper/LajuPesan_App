@@ -83,7 +83,7 @@ class Register extends BaseRegister
         ->prefixIcon('heroicon-o-at-symbol')
         ->hint('Minimal 5 karakter, tidak boleh ada spasi.')
         ->required()
-        ->rules(['min:5'])
+        ->rules(['min:5', 'alpha_dash', 'not_in:admin,api,login,register,store,transaksi,sitemap.xml,privacy-policy,filament,up'])
         ->unique($this->getUserModel());
     }
 

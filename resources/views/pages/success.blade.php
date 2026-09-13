@@ -41,7 +41,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <span id="qty">{{ $transactionDetail->qty }}</span>
+                                <span id="qty">{{ $transactionDetail->quantity }}</span>
 
                             </div>
                         </div>

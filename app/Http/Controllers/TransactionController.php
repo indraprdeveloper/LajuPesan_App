@@ -10,6 +10,8 @@ use App\Events\TransactionStatusUpdated;
 use App\Jobs\AutoFailCashTransaction;
 use App\Models\ProductReview;
 use Illuminate\Support\Facades\Cookie;
+use App\Services\TransactionService;
+use App\Enums\TransactionStatus;
 
 class TransactionController extends Controller
 {
@@ -35,7 +37,7 @@ class TransactionController extends Controller
         return view('pages.customer-information', compact('store'));
     }
 
-    public function checkout(Request $request)
+    public function checkout(Request $request, TransactionService $transactionService)
     {
         $store = User::where('username', $request->username)->first();
 
@@ -43,77 +45,45 @@ class TransactionController extends Controller
             abort(404);
         }
 
-        $carts = json_decode($request->cart, true);
-
-        $totalPrice = 0;
-        foreach ($carts as $cart) {
-            $product = Product::where('id', $cart['id'])->first();
-            $totalPrice += $product->price * $cart['qty'];
-        } 
-
-        $transaction = $store->transactions()->create([
-            'code' => 'TRX-' . mt_rand(10000, 99999),
-            'name' => $request->name,
-            'phone_number' => $request->phone_number,
-            'table_number' => $request->table_number,
-            'payment_method' => $request->payment_method,
-            'total_price' => $totalPrice,
-            'status' => 'pending',
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:20',
+            'table_number' => 'required|string|max:50',
+            'payment_method' => 'required|in:cash,midtrans',
+            'cart' => 'required|string',
         ]);
 
-                foreach ($carts as $cart) {
-          $product = Product::where('id', $cart['id'])->first();
-            $transaction->transactionDetails()->create([
-                'product_id' => $product->id,
-                'quantity' => $cart['qty'],
-                'note' => $cart['notes'],
-            ]);
+        $carts = json_decode($request->cart, true);
+        
+        if (empty($carts) || !is_array($carts)) {
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json(['message' => 'Keranjang kosong atau format tidak valid.'], 400);
+            }
+            return back()->with('error', 'Keranjang kosong atau format tidak valid.');
         }
 
-        TransactionStatusUpdated::dispatch($transaction);
-
-        if ($request->payment_method == 'cash') {
-            // Jadwalkan auto-gagal dalam 5 menit jika kasir tidak mengubah status
-            AutoFailCashTransaction::dispatch($transaction->id)->delay(now()->addMinutes(5));
-
-            return redirect()->route('success', ['username' => $store->username, 'order_id' => $transaction->code]);
-        } else {
-            //Atur Kunci Server Merchant Anda
-            \Midtrans\Config::$serverKey = config('midtrans.server_key');
-            //Set to Development/Sandbox Environment (default)
-            \Midtrans\Config::$isProduction = config('midtrans.is_production');
-            \Midtrans\Config::$isSanitized = config('midtrans.is_sanitized');
-            \Midtrans\Config::$is3ds = config('midtrans.is_3ds');
-
-            $params = [
-                'transaction_details' => [
-                    'order_id' => $transaction->code,
-                    'gross_amount' => $totalPrice,
-                ],
-                'customer_details' => [
-                    'first_name' => $request->name,
-                    'phone' => $request->phone_number,
-                ],
-                'expiry' => [
-                    'start_time' => date("Y-m-d H:i:s O"),
-                    'unit' => 'minute',
-                    'duration' => 5,
-                ],
-            ];
-
-            $snapToken = \Midtrans\Snap::getSnapToken($params);
-            
-            // Jadwalkan auto-gagal dalam 5 menit jika pembayaran belum diselesaikan
-            AutoFailCashTransaction::dispatch($transaction->id)->delay(now()->addMinutes(5));
-            
-            return response()->json([
-                'snap_token' => $snapToken,
-                'success_url' => route('success', ['username' => $store->username, 'order_id' => $transaction->code]),
-                'failed_url' => route('failed', ['username' => $store->username, 'order_id' => $transaction->code]),
-                'customer_info_url' => route('customer-information', ['username' => $store->username]),
-                'cancel_url' => route('transaction.cancel', ['username' => $store->username, 'order_id' => $transaction->code]),
-            ]);
+        foreach ($carts as $item) {
+            $product = Product::find($item['id']);
+            if (!$product || !$product->is_available) {
+                $productName = $product ? $product->name : 'Menu';
+                $msg = "Maaf, menu '{$productName}' saat ini sedang habis. Silakan hapus dari keranjang Anda.";
+                if ($request->wantsJson() || $request->ajax()) {
+                    return response()->json(['message' => $msg], 422);
+                }
+                return back()->with('error', $msg);
+            }
         }
+
+        $totalPrice = $transactionService->calculateCartTotal($carts);
+        
+        $transaction = $transactionService->createCheckoutTransaction(
+            $store, 
+            $request->only(['name', 'phone_number', 'table_number', 'payment_method']), 
+            $carts, 
+            $totalPrice
+        );
+
+        return $transactionService->processPayment($transaction, $store);
     }
 
     public function success(Request $request)
@@ -125,21 +95,6 @@ class TransactionController extends Controller
         }
 
         $store = $transaction->user;
-
-        if ($transaction->payment_method !== 'cash' && $transaction->status !== 'success') {
-            $transaction->update(['status' => 'success']);
-            TransactionStatusUpdated::dispatch($transaction);
-        }
-
-         // Ambil daftar ID transaksi dari HP ini (jika ada)
-    $userTransactions = json_decode(request()->cookie('user_transactions', '[]'), true);
-
-    // Jika ID transaksi saat ini belum tersimpan di HP ini, maka simpan
-    if (!in_array($transaction->id, $userTransactions)) {
-        $userTransactions[] = $transaction->id;
-        // Simpan ke cookie selama 30 hari (43200 menit)
-        Cookie::queue('user_transactions', json_encode($userTransactions), 43200);
-    }
 
         return view('pages.success', compact('transaction', 'store'));
     }
@@ -154,8 +109,8 @@ class TransactionController extends Controller
 
         $store = $transaction->user;
 
-        if ($transaction->status === 'pending') {
-            $transaction->update(['status' => 'failed']);
+        if ($transaction->status === TransactionStatus::PENDING->value) {
+            $transaction->update(['status' => TransactionStatus::FAILED->value]);
             TransactionStatusUpdated::dispatch($transaction);
         }
 
@@ -170,8 +125,13 @@ class TransactionController extends Controller
             return response()->json(['status' => 'not_found'], 404);
         }
 
+        $userTransactions = json_decode(request()->cookie('user_transactions', '[]'), true);
+        if (!in_array($transaction->id, $userTransactions)) {
+            return response()->json(['status' => 'unauthorized'], 403);
+        }
+
         // Hanya batalkan jika masih pending
-        if ($transaction->status === 'pending') {
+        if ($transaction->status === TransactionStatus::PENDING->value) {
             $transaction->transactionDetails()->delete();
             $transaction->delete();
         }
@@ -195,6 +155,11 @@ class TransactionController extends Controller
             abort(404);
         }
 
+        $userTransactions = json_decode(request()->cookie('user_transactions', '[]'), true);
+        if (!in_array($transaction->id, $userTransactions)) {
+            abort(403, 'Akses ditolak: Anda tidak memiliki akses ke pesanan ini.');
+        }
+
         // Cek apakah sudah di-rating
         if ($transaction->is_rated) {
             return redirect()->route('index', $store->username)
@@ -216,6 +181,11 @@ class TransactionController extends Controller
 
         if (!$transaction || $transaction->is_rated) {
             abort(404);
+        }
+
+        $userTransactions = json_decode(request()->cookie('user_transactions', '[]'), true);
+        if (!in_array($transaction->id, $userTransactions)) {
+            abort(403, 'Akses ditolak: Anda tidak memiliki akses ke pesanan ini.');
         }
 
         $ratings = $request->input('ratings', []);

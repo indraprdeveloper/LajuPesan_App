@@ -19,11 +19,13 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'is_popular'
+        'is_popular',
+        'is_available'
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
+        'is_available' => 'boolean',
     ];
 
     public static function boot()
@@ -32,13 +34,13 @@ class Product extends Model
 
         static::creating(function ($model) {
 
-            if (Auth::user()->role === 'store') {
+            if (Auth::user()?->role === 'store') {
                 $model->user_id = Auth::user()->id;
             }
         });
         static::updating(function ($model) {
 
-            if (Auth::user()->role === 'store') {
+            if (Auth::user()?->role === 'store') {
                 $model->user_id = Auth::user()->id;
             }
         });

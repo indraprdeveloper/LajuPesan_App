@@ -10,6 +10,14 @@
             <div class="dummy-btn w-12"></div>
         </div>
 
+        @if (session('error'))
+        <div class="px-5 mt-[10px]">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ session('error') }}</span>
+            </div>
+        </div>
+        @endif
+
         <div id="Cart" class="flex flex-col gap-4 mt-[10px] px-5">
             @foreach ($store->products as $product)
             <div class="cart-item flex gap-4 flex-col rounded-[8px] border border-[#F1F2F6] p-[12px]  bg-white hover:bg-[#FFF7F0] hover:border-[1px] hover:border-[#F3AF00] transition-all duration-300"

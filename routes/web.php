@@ -19,7 +19,7 @@ Route::get('/store/qr-code/download', [StoreQrCodeController::class, 'download']
     ->name('store.qr-code.download');
 
 Route::get('/sitemap.xml', function () {
-    $users = User::whereNotNull('username')->get();
+    $users = User::where('role', 'store')->whereNotNull('email_verified_at')->get();
     $baseUrl = config('app.url');
 
     $xml = '<?xml version="1.0" encoding="UTF-8"?>';

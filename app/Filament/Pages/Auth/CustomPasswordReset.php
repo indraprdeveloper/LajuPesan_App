@@ -41,8 +41,8 @@ class CustomPasswordReset extends SimplePage
         // Generate 6 digit OTP
         $generatedOtp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
         
-        // Simpan OTP di cache selama 10 menit
-        Cache::put('otp_reset_' . $this->email, $generatedOtp, now()->addMinutes(10));
+        // Simpan OTP dalam bentuk terenkripsi (hash) di cache selama 10 menit
+        Cache::put('otp_reset_' . $this->email, Hash::make($generatedOtp), now()->addMinutes(10));
 
         // Kirim OTP melalui Email
         $user = User::where('email', $this->email)->first();
@@ -73,7 +73,7 @@ class CustomPasswordReset extends SimplePage
 
         $cachedOtp = Cache::get('otp_reset_' . $this->email);
 
-        if (!$cachedOtp || $cachedOtp !== $this->otp) {
+        if (!$cachedOtp || !Hash::check($this->otp, $cachedOtp)) {
             Notification::make()
                 ->title('Token Tidak Valid')
                 ->body('Kode token salah atau sudah kedaluwarsa.')

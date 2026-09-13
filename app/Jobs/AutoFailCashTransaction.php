@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use App\Enums\TransactionStatus;
 
 class AutoFailCashTransaction implements ShouldQueue
 {
@@ -23,12 +24,12 @@ class AutoFailCashTransaction implements ShouldQueue
         $transaction = Transaction::find($this->transactionId);
 
         // Jika transaksi tidak ditemukan atau statusnya sudah bukan pending, abaikan
-        if (!$transaction || $transaction->status !== 'pending') {
+        if (!$transaction || $transaction->status !== TransactionStatus::PENDING->value) {
             return;
         }
 
         // Ubah status menjadi gagal
-        $transaction->update(['status' => 'failed']);
+        $transaction->update(['status' => TransactionStatus::FAILED->value]);
 
         // Kirim notifikasi real-time ke dashboard admin
         TransactionStatusUpdated::dispatch($transaction);

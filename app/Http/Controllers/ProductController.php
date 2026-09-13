@@ -29,13 +29,15 @@ class ProductController extends Controller
             abort(404);
         }
 
-        $products = Product::where('user_id', $store->id);
+        $products = Product::where('user_id', $store->id)->where('is_available', true);
         
         if(isset($request->category)) {
-            $category = ProductCategory::where('user_id', $store->id)->where('user_id', $store->id)
+            $category = ProductCategory::where('user_id', $store->id)
                 ->where('slug', $request->category)->first(); 
             
-            $products = $products->where('product_category_id', $category->id);
+            if ($category) {
+                $products = $products->where('product_category_id', $category->id);
+            }
         }
 
         if(isset($request->search)) {
@@ -55,7 +57,7 @@ class ProductController extends Controller
             abort(404);
         }
 
-        $product = Product::where('user_id', $store->id)->where('id', $request->id)->first();
+        $product = Product::where('user_id', $store->id)->where('is_available', true)->where('id', $request->id)->first();
 
         if (!$product) {
             abort(404);

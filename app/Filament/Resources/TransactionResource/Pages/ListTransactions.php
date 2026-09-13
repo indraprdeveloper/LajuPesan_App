@@ -11,6 +11,7 @@ use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\Auth;
 use Filament\Notifications\Notification;
+use App\Enums\TransactionStatus;
 
 class ListTransactions extends ListRecords
 {
@@ -93,7 +94,7 @@ class ListTransactions extends ListRecords
         // Auto-refresh tabel agar data terbaru langsung muncul
         $this->resetTable();
 
-        if ($status === 'pending') {
+        if ($status === TransactionStatus::PENDING->value) {
             if ($paymentMethod === 'cash') {
                 // 🔊 Putar suara notifikasi transaksi tunai masuk
                 $this->dispatch('play-transaction-sound', type: 'cash-pending');
@@ -112,7 +113,7 @@ class ListTransactions extends ListRecords
                     ->duration(10000)
                     ->send();
             }
-        } elseif ($status === 'success') {
+        } elseif ($status === TransactionStatus::SUCCESS->value) {
             if ($paymentMethod === 'cash') {
                 Notification::make()
                     ->title('✅ Pembayaran Selesai')
@@ -131,7 +132,7 @@ class ListTransactions extends ListRecords
                     ->duration(10000)
                     ->send();
             }
-        } elseif ($status === 'failed') {
+        } elseif ($status === TransactionStatus::FAILED->value) {
             if ($paymentMethod === 'cash') {
                 Notification::make()
                     ->title('❌ Pembayaran Tunai Gagal')

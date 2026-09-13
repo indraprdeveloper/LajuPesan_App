@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\TransactionStatus;
 use App\Events\TransactionStatusUpdated;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -27,38 +28,38 @@ class MidtransController extends Controller
         }
 
         switch ($transactionStatus) {
-            case 'capture';
+            case 'capture':
             if ($request->payment_type == 'credit_card') {
                 if ($request->fraud_status == 'challenge') {
-                    $transaction->update(['status' => 'pending']);
+                    $transaction->update(['status' => TransactionStatus::PENDING->value]);
                 } else {
-                    $transaction->update(['status' => 'success']);
+                    $transaction->update(['status' => TransactionStatus::SUCCESS->value]);
                 }
             }
             break;
 
-            case 'settlement';
-            $transaction->update(['status' => 'success']);
+            case 'settlement':
+            $transaction->update(['status' => TransactionStatus::SUCCESS->value]);
             break;
 
-            case 'pending';
-            $transaction->update(['status' => 'pending']);
+            case 'pending':
+            $transaction->update(['status' => TransactionStatus::PENDING->value]);
             break;
 
-            case 'deny';
-            $transaction->update(['status' => 'failed']);
+            case 'deny':
+            $transaction->update(['status' => TransactionStatus::FAILED->value]);
             break;
 
-            case 'expire';
-            $transaction->update(['status' => 'failed']);
+            case 'expire':
+            $transaction->update(['status' => TransactionStatus::FAILED->value]);
             break;
 
-            case 'cancel';
-            $transaction->update(['status' => 'failed']);
+            case 'cancel':
+            $transaction->update(['status' => TransactionStatus::FAILED->value]);
             break;
 
             default:
-            $transaction->update(['status' => 'failed']);
+            $transaction->update(['status' => TransactionStatus::FAILED->value]);
             break;
         }
 

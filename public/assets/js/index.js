@@ -1,3 +1,9 @@
+
+const getCartKey = () => {
+    const storeName = window.location.pathname.split('/')[1];
+    return `cart_${storeName}`;
+};
+
 let cartCountElement = document.querySelector("#cart-count");
 
 const swiper = new Swiper(".swiper", {
@@ -5,38 +11,38 @@ const swiper = new Swiper(".swiper", {
     spaceBetween: 20,
 });
 
-const addToCart = (id) => {
+const addToCart = (event, id) => {
     event.preventDefault();
     event.stopPropagation();
 
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = JSON.parse(localStorage.getItem(getCartKey())) || [];
     const itemIndex = cart.findIndex((item) => item.id === id);
     if (itemIndex > -1) {
         cart[itemIndex].qty += 1;
     } else {
         cart.push({ id, qty: 1, notes: "" });
     }
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem(getCartKey(), JSON.stringify(cart));
     updateDisplay();
     updateCartItems();
     showToast();
 };
 
 const removeFromCart = (id) => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = JSON.parse(localStorage.getItem(getCartKey())) || [];
     const newCart = cart.filter((item) => item.id !== id);
-    localStorage.setItem("cart", JSON.stringify(newCart));
+    localStorage.setItem(getCartKey(), JSON.stringify(newCart));
     updateDisplay();
     updateCartItems();
 };
 
 function increaseQuantity(id) {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = JSON.parse(localStorage.getItem(getCartKey())) || [];
     const itemIndex = cart.findIndex((item) => item.id === id);
     if (itemIndex > -1) {
         cart[itemIndex].qty += 1;
     }
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem(getCartKey(), JSON.stringify(cart));
 
     const qtyElement = document.querySelector(`[data-id="${id}"]#qty`);
     if (qtyElement) {
@@ -48,7 +54,7 @@ function increaseQuantity(id) {
 }
 
 function decreaseQuantity(id) {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = JSON.parse(localStorage.getItem(getCartKey())) || [];
     const itemIndex = cart.findIndex((item) => item.id === id);
     if (itemIndex > -1) {
         if (cart[itemIndex].qty > 1) {
@@ -57,7 +63,7 @@ function decreaseQuantity(id) {
             cart.splice(itemIndex, 1);
         }
     }
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem(getCartKey(), JSON.stringify(cart));
 
     const qtyElement = document.querySelector(`[data-id="${id}"]#qty`);
     if (qtyElement) {
@@ -76,12 +82,12 @@ function deleteItem(element) {
     const cartItem = element.closest(".cart-item");
     if (cartItem) {
         const id = cartItem.dataset.id;
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cart = JSON.parse(localStorage.getItem(getCartKey())) || [];
         const itemIndex = cart.findIndex((item) => item.id === id);
         if (itemIndex > -1) {
             cart.splice(itemIndex, 1);
         }
-        localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem(getCartKey(), JSON.stringify(cart));
         cartItem.remove();
     }
 
@@ -109,7 +115,7 @@ function calculateTotal() {
 }
 
 const getCart = () => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = JSON.parse(localStorage.getItem(getCartKey())) || [];
     return cart;
 };
 
@@ -155,7 +161,7 @@ document.querySelectorAll('input[name="notes"]').forEach((element) => {
         );
         if (itemIndex > -1) {
             cart[itemIndex].notes = event.target.value;
-            localStorage.setItem("cart", JSON.stringify(cart));
+            localStorage.setItem(getCartKey(), JSON.stringify(cart));
         }
     });
 });
